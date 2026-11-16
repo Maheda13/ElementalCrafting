@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ZatCraft — Laboratorium Kartu Materi & Campuran (SMP Kelas 7)</title>
+  <meta name="description" content="Game edukasi interaktif kartu materi IPA SMP Kelas 7: Unsur, Senyawa, dan Campuran Homogen, Koloid, Heterogen.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-theme">
+  <!-- Canvas Confetti & Partikel -->
+  <canvas id="fx-canvas"></canvas>
+
+  <div id="game-app">
+    <!-- Header / Navigasi Atas -->
+    <header class="game-header">
+      <div class="brand">
+        <div class="brand-icon">⚗️</div>
+        <div class="brand-text">
+          <h1>ZatCraft <span class="badge-grade">SMP Kelas 7</span></h1>
+          <p class="brand-sub">Laboratorium Kartu Materi & Campuran</p>
+        </div>
+      </div>
+
+      <!-- Mode Switcher Navigation Tabs -->
+      <nav class="mode-switcher-nav" aria-label="Pilihan Laboratorium">
+        <button id="btn-mode-unsur" class="mode-tab active" data-mode="unsur_senyawa">
+          <span class="mode-icon">🔬</span>
+          <span class="mode-label">Lab 1: Unsur & Senyawa</span>
+        </button>
+        <button id="btn-mode-campuran" class="mode-tab" data-mode="campuran">
+          <span class="mode-icon">🧪</span>
+          <span class="mode-label">Lab 2: Ragam Campuran</span>
+        </button>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="header-actions">
+        <button id="btn-codex" class="icon-btn" title="Buku Resep & Ensiklopedia Zat" aria-label="Buku Resep">
+          <span class="btn-icon">📖</span>
+          <span class="btn-text">Buku Resep</span>
+        </button>
+        <button id="btn-tutorial" class="icon-btn" title="Panduan Cara Main" aria-label="Panduan">
+          <span class="btn-icon">❓</span>
+          <span class="btn-text">Panduan</span>
+        </button>
+        <button id="btn-leaderboard" class="icon-btn" title="Papan Peringkat Siswa" aria-label="Peringkat">
+          <span class="btn-icon">🏆</span>
+          <span class="btn-text">Peringkat</span>
+        </button>
+        <button id="btn-sound" class="icon-btn" title="Nyalakan / Matikan Suara" aria-label="Suara">
+          <span id="sound-icon" class="btn-icon">🔊</span>
+        </button>
+        <button id="btn-restart" class="icon-btn danger" title="Mulai Ulang Permainan" aria-label="Mulai Ulang">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 0 1 15-6.7L21 8"/>
+            <path d="M21 3v5h-5"/>
+            <path d="M21 12a9 9 0 0 1-15 6.7L3 16"/>
+            <path d="M3 21v-5h5"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Sub-Dashboard: Misi Aktif & Live Stats -->
+    <section class="dashboard-bar">
+      <!-- Mission Tracker Banner -->
+      <div class="mission-banner">
+        <div class="mission-info">
+          <div id="mission-badge" class="mission-badge">MISI LAB 1</div>
+          <div class="mission-content">
+            <h2 id="mission-title">Misi: Kenali Unsur Murni</h2>
+            <p id="mission-desc">Tarik kartu yang tergolong Unsur ke dalam Tabung Unsur.</p>
+          </div>
+        </div>
+        <div class="mission-progress-container">
+          <div class="mission-progress-bar">
+            <div id="mission-fill" class="mission-fill" style="width: 0%"></div>
+          </div>
+          <span id="mission-text" class="mission-text">0 / 3</span>
+        </div>
+      </div>
+
+      <!-- Stats Bar -->
+      <div class="header-stats">
+        <div class="stat-pill score-pill" title="Total Skor Kamu">
+          <span class="stat-icon">⭐</span>
+          <div class="stat-details">
+            <span class="stat-label">SKOR</span>
+            <span id="player-score" class="stat-value">0</span>
+          </div>
+        </div>
+
+        <div class="stat-pill streak-pill" title="Kombo Jawaban Benar Berturut-turut">
+          <span class="stat-icon">🔥</span>
+          <div class="stat-details">
+            <span class="stat-label">KOMBO</span>
+            <span id="streak-counter" class="stat-value">0x</span>
+          </div>
+        </div>
+
+        <div class="stat-pill level-pill" title="Level Pemain Saat Ini">
+          <span class="stat-icon">🏅</span>
+          <div class="stat-details">
+            <span class="stat-label">LEVEL</span>
+            <span id="player-level" class="stat-value">1</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAIN GAME BOARD: MODE 1 (UNSUR & SENYAWA) -->
+    <main id="board-unsur-senyawa" class="game-board active-mode-board">
+      
+      <!-- Zona Klasifikasi: 2 Tabung (Unsur vs Senyawa) -->
+      <section class="zone classification-zone">
+        <div class="zone-header">
+          <div class="zone-title-group">
+            <span class="zone-num">1</span>
+            <h3>Klasifikasi Materi</h3>
+          </div>
+          <span class="zone-hint">Klasifikasikan kartu ke tabung yang tepat (+10 Poin)</span>
+        </div>
+
+        <div class="tubes-grid tubes-grid-2">
+          <!-- Tabung Unsur -->
+          <div class="classification-tube tube-unsur" data-target-type="unsur" id="tube-unsur">
+            <div class="tube-glass">
+              <div class="tube-rim"></div>
+              <div class="tube-ticks"><span></span><span></span><span></span></div>
+              <div class="tube-liquid liquid-unsur"></div>
+              <div class="tube-bubbles"><span></span><span></span><span></span></div>
+            </div>
+            <div class="tube-info">
+              <div class="tube-badge badge-unsur">UNSUR</div>
+              <h4>Tabung Unsur</h4>
+              <p class="tube-target-hint">Tarik kartu ke sini</p>
+            </div>
+            <div class="tube-counter" id="count-unsur">0 Terkumpul</div>
+          </div>
+
+          <!-- Tabung Senyawa -->
+          <div class="classification-tube tube-senyawa" data-target-type="senyawa" id="tube-senyawa">
+            <div class="tube-glass">
+              <div class="tube-rim"></div>
+              <div class="tube-ticks"><span></span><span></span><span></span></div>
+              <div class="tube-liquid liquid-senyawa"></div>
+              <div class="tube-bubbles"><span></span><span></span><span></span></div>
+            </div>
+            <div class="tube-info">
+              <div class="tube-badge badge-senyawa">SENYAWA</div>
+              <h4>Tabung Senyawa</h4>
+              <p class="tube-target-hint">Tarik kartu ke sini</p>
+            </div>
+            <div class="tube-counter" id="count-senyawa">0 Terkumpul</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Zona Meja Reaksi (Sintesis Unsur -> Senyawa / Molekul Unsur) -->
+      <section class="zone crafting-zone">
+        <div class="zone-header">
+          <div class="zone-title-group">
+            <span class="zone-num">2</span>
+            <h3>Meja Gabung Molekul (Sintesis)</h3>
+          </div>
+          <span class="zone-hint">Gabungkan 2 kartu bahan untuk membuat molekul (+30 Poin)</span>
+        </div>
+
+        <div class="lab-bench">
+          <div class="crafting-workbench-surface">
+            <div class="crafting-slots-wrapper">
+              <div class="crafting-slot" data-slot="0" id="slot-unsur-0">
+                <div class="slot-placeholder">
+                  <span class="slot-icon">⚛️</span>
+                  <span class="slot-label">Bahan 1</span>
+                  <small>Tarik ke sini</small>
+                </div>
+              </div>
+              <div class="craft-operator-circle">+</div>
+              <div class="crafting-slot" data-slot="1" id="slot-unsur-1">
+                <div class="slot-placeholder">
+                  <span class="slot-icon">⚛️</span>
+                  <span class="slot-label">Bahan 2</span>
+                  <small>Tarik ke sini</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="crafting-controls">
+              <button id="btn-craft-senyawa" class="btn-primary-glow" disabled>
+                <span class="glow-effect"></span>
+                <span class="btn-craft-icon">⚡</span>
+                <span class="btn-craft-text">Gabungkan Molekul!</span>
+              </button>
+              <button id="btn-clear-unsur" class="btn-secondary" title="Kembalikan bahan ke tangan">↩ Kembalikan</button>
+            </div>
+          </div>
+
+          <div class="crafting-clue" id="clue-unsur-senyawa">
+            <span class="clue-icon">💡</span>
+            <span id="clue-text-unsur">Gabungkan 2 bahan di meja untuk membentuk molekul baru!</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- MAIN GAME BOARD: MODE 2 (RAGAM CAMPURAN: HOMOGEN, KOLOID, HETEROGEN) -->
+    <main id="board-campuran" class="game-board" style="display: none;">
+      
+      <!-- Zona Klasifikasi: 3 Wadah (Homogen, Koloid, Heterogen) -->
+      <section class="zone classification-zone">
+        <div class="zone-header">
+          <div class="zone-title-group">
+            <span class="zone-num">1</span>
+            <h3>Klasifikasi Campuran</h3>
+          </div>
+          <span class="zone-hint">Klasifikasikan hasil campuran ke wadah yang tepat (+10 Poin)</span>
+        </div>
+
+        <div class="tubes-grid tubes-grid-3">
+          <!-- Wadah Homogen -->
+          <div class="classification-tube tube-homogen" data-target-type="homogen" id="tube-homogen">
+            <div class="tube-glass beaker-glass">
+              <div class="beaker-spout"></div>
+              <div class="tube-ticks"><span></span><span></span><span></span></div>
+              <div class="tube-liquid liquid-homogen"></div>
+              <div class="tube-bubbles"><span></span><span></span></div>
+            </div>
+            <div class="tube-info">
+              <div class="tube-badge badge-homogen">HOMOGEN</div>
+              <h4>Larutan</h4>
+              <p class="tube-target-hint">Tarik kartu ke sini</p>
+            </div>
+            <div class="tube-counter" id="count-homogen">0 Terkumpul</div>
+          </div>
+
+          <!-- Wadah Koloid -->
+          <div class="classification-tube tube-koloid" data-target-type="koloid" id="tube-koloid">
+            <div class="tube-glass beaker-glass">
+              <div class="beaker-spout"></div>
+              <div class="tube-ticks"><span></span><span></span><span></span></div>
+              <div class="tube-liquid liquid-koloid"></div>
+              <div class="tube-bubbles"><span></span><span></span></div>
+            </div>
+            <div class="tube-info">
+              <div class="tube-badge badge-koloid">KOLOID</div>
+              <h4>Koloid</h4>
+              <p class="tube-target-hint">Tarik kartu ke sini</p>
+            </div>
+            <div class="tube-counter" id="count-koloid">0 Terkumpul</div>
+          </div>
+
+          <!-- Wadah Heterogen -->
+          <div class="classification-tube tube-heterogen" data-target-type="heterogen" id="tube-heterogen">
+            <div class="tube-glass beaker-glass">
+              <div class="beaker-spout"></div>
+              <div class="tube-ticks"><span></span><span></span><span></span></div>
+              <div class="tube-liquid liquid-heterogen"></div>
+              <div class="tube-sediment"></div>
+            </div>
+            <div class="tube-info">
+              <div class="tube-badge badge-heterogen">HETEROGEN</div>
+              <h4>Suspensi</h4>
+              <p class="tube-target-hint">Tarik kartu ke sini</p>
+            </div>
+            <div class="tube-counter" id="count-heterogen">0 Terkumpul</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Zona Meja Pencampuran Bahan Dasar -->
+      <section class="zone crafting-zone">
+        <div class="zone-header">
+          <div class="zone-title-group">
+            <span class="zone-num">2</span>
+            <h3>Meja Racik & Pencampuran Zat</h3>
+          </div>
+          <span class="zone-hint">Campurkan Air dengan bahan dasar untuk membuat campuran (+30 Poin)</span>
+        </div>
+
+        <div class="lab-bench">
+          <div class="crafting-workbench-surface">
+            <div class="crafting-slots-wrapper">
+              <div class="crafting-slot" data-slot="0" id="slot-campuran-0">
+                <div class="slot-placeholder">
+                  <span class="slot-icon">💧</span>
+                  <span class="slot-label">Pelarut (Air)</span>
+                  <small>Tarik ke sini</small>
+                </div>
+              </div>
+              <div class="craft-operator-circle">+</div>
+              <div class="crafting-slot" data-slot="1" id="slot-campuran-1">
+                <div class="slot-placeholder">
+                  <span class="slot-icon">🧂</span>
+                  <span class="slot-label">Bahan Dasar</span>
+                  <small>Tarik ke sini</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="crafting-controls">
+              <button id="btn-mix-campuran" class="btn-primary-glow btn-mix-glow" disabled>
+                <span class="glow-effect"></span>
+                <span class="btn-craft-icon">🌀</span>
+                <span class="btn-craft-text">Aduk & Campurkan!</span>
+              </button>
+              <button id="btn-clear-campuran" class="btn-secondary" title="Kembalikan bahan ke tangan">↩ Kembalikan</button>
+            </div>
+          </div>
+
+          <div class="crafting-clue" id="clue-campuran">
+            <span class="clue-icon">💡</span>
+            <span id="clue-text-campuran">Campurkan Air dan bahan dasar untuk membuat campuran!</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom Dock: Tangan Pemain & Dek -->
+    <footer class="game-footer">
+      <div class="hand-controls">
+        <div class="deck-indicator" title="Sisa Kartu di Tumpukan Dek">
+          <div class="deck-icon-svg">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none">
+              <rect x="2" y="7" width="13" height="15" rx="2.5" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.5"/>
+              <rect x="5" y="4" width="13" height="15" rx="2.5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+              <rect x="8" y="1" width="13" height="15" rx="2.5" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+              <circle cx="14.5" cy="8.5" r="2.5" fill="#2563eb"/>
+            </svg>
+          </div>
+          <div class="deck-text">
+            <span class="deck-label">DEK BAHAN</span>
+            <span id="deck-counter" class="deck-count">14 Kartu</span>
+          </div>
+        </div>
+
+        <button id="btn-draw" class="btn-draw" title="Ambil kartu bahan baru dari dek">
+          <span class="btn-draw-icon">➕</span>
+          <span class="btn-draw-text">Ambil Kartu</span>
+        </button>
+
+        <div class="hand-capacity">
+          <span class="capacity-pill"><span id="hand-count">5</span> / 7 di Tangan</span>
+        </div>
+      </div>
+
+      <!-- Kartu di tangan pemain -->
+      <div class="hand-container" id="player-hand"></div>
+    </footer>
+  </div>
+
+  <!-- Toast Floating Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Modal: Detail & Trivia Kartu -->
+  <div id="modal-card-detail" class="modal-overlay" aria-hidden="true">
+    <div class="modal-box card-detail-box">
+      <button class="modal-close" data-close="modal-card-detail">&times;</button>
+      <div class="detail-header">
+        <div id="detail-category-badge" class="tube-badge badge-unsur">ZAT</div>
+        <h3 id="detail-title">Nama Zat</h3>
+        <p id="detail-formula" class="detail-formula">Rumus: H₂O</p>
+      </div>
+
+      <div class="detail-body">
+        <div class="detail-card-preview" id="detail-card-preview"></div>
+
+        <div class="detail-info-list">
+          <div class="info-row">
+            <span class="info-label">Wujud Suhu Kamar:</span>
+            <span id="detail-state" class="info-val">Gas / Cair / Padat</span>
+          </div>
+          <div class="info-row trivia-row">
+            <span class="info-label">Fakta Sains & Manfaat Sehari-hari:</span>
+            <span id="detail-trivia" class="info-val highlight">Fakta dan pemanfaatan sehari-hari.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-primary" data-close="modal-card-detail">Tutup Info</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Buku Resep (Codex) -->
+  <div id="modal-codex" class="modal-overlay" aria-hidden="true">
+    <div class="modal-box codex-box">
+      <button class="modal-close" data-close="modal-codex">&times;</button>
+      <div class="modal-header">
+        <span class="modal-icon">📖</span>
+        <h2>Buku Resep & Ensiklopedia Sains SMP</h2>
+        <p>Koleksi rumus molekul dan resep campuran sehari-hari.</p>
+      </div>
+
+      <div class="codex-stats">
+        <div class="codex-stat-item">
+          <span class="codex-stat-val" id="codex-unlocked-count">0 / 14</span>
+          <span class="codex-stat-lbl">Resep Terbuka</span>
+        </div>
+        <div class="codex-stat-item">
+          <span class="codex-stat-val" id="cards-discovered-count">0 / 25</span>
+          <span class="codex-stat-lbl">Kartu Ditemukan</span>
+        </div>
+      </div>
+
+      <div class="codex-tabs">
+        <button class="tab-btn active" data-tab="senyawa">Resep Molekul (Lab 1)</button>
+        <button class="tab-btn" data-tab="campuran">Resep Campuran (Lab 2)</button>
+      </div>
+
+      <div class="codex-content">
+        <div class="tab-panel active" id="tab-senyawa">
+          <div class="recipe-grid" id="recipe-list-senyawa"></div>
+        </div>
+
+        <div class="tab-panel" id="tab-campuran">
+          <div class="recipe-grid" id="recipe-list-campuran"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Panduan Cara Main -->
+  <div id="modal-tutorial" class="modal-overlay" aria-hidden="true">
+    <div class="modal-box tutorial-box">
+      <button class="modal-close" data-close="modal-tutorial">&times;</button>
+      <div class="modal-header">
+        <span class="modal-icon">🧪</span>
+        <h2>Panduan Bermain ZatCraft</h2>
+        <p>Uji kemampuanmu mengklasifikasikan materi:</p>
+      </div>
+
+      <div class="tutorial-steps">
+        <div class="tut-step">
+          <div class="tut-num">1</div>
+          <div class="tut-content">
+            <h4>🔬 Lab 1: Unsur & Senyawa</h4>
+            <p>Gabungkan bahan di meja untuk membuat molekul baru. Tentukan mana yang tergolong <strong>Unsur</strong> dan mana yang tergolong <strong>Senyawa</strong>!</p>
+          </div>
+        </div>
+
+        <div class="tut-step">
+          <div class="tut-num">2</div>
+          <div class="tut-content">
+            <h4>🧪 Lab 2: Ragam Campuran</h4>
+            <p>Campurkan Air dengan bahan di meja racik. Tentukan jenis campurannya: <strong>Homogen</strong>, <strong>Koloid</strong>, atau <strong>Heterogen</strong>!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-primary" data-close="modal-tutorial">Mulai Bermain! 🚀</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Papan Peringkat -->
+  <div id="modal-leaderboard" class="modal-overlay" aria-hidden="true">
+    <div class="modal-box leaderboard-box">
+      <button class="modal-close" data-close="modal-leaderboard">&times;</button>
+      <div class="modal-header">
+        <span class="modal-icon">🏆</span>
+        <h2>Papan Peringkat Laboratorium</h2>
+        <p>Rekor skor tertinggi siswa SMPIT Darul Fikri Sidoarjo.</p>
+      </div>
+
+      <form id="form-save-score" class="save-score-form">
+        <input type="text" id="input-player-name" placeholder="Ketik Nama Siswa & Kelas (cth: Ahmad 7A)..." maxlength="25" required>
+        <button type="submit" class="btn-primary">Simpan Rekor</button>
+      </form>
+
+      <div class="leaderboard-table-wrapper">
+        <table class="leaderboard-table">
+          <thead>
+            <tr>
+              <th>Peringkat</th>
+              <th>Nama Siswa</th>
+              <th>Skor</th>
+              <th>Level</th>
+              <th>Tanggal</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-secondary" id="btn-clear-scores">Reset Data</button>
+        <button class="btn-primary" data-close="modal-leaderboard">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Level Up -->
+  <div id="modal-levelup" class="modal-overlay" aria-hidden="true">
+    <div class="modal-box levelup-box">
+      <div class="levelup-badge">LEVEL UP! 🌟</div>
+      <h2 id="levelup-title">Selamat! Naik ke Level Berikutnya</h2>
+      <p id="levelup-desc">Kamu telah menyelesaikan misi dengan sangat baik!</p>
+      
+      <div class="levelup-reward">
+        <span class="reward-icon">🎁</span>
+        <div>
+          <h4>Hadiah Laboratorium:</h4>
+          <p id="levelup-reward-text">+50 Poin Bonus & Misi Baru Dibuka!</p>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-primary" id="btn-continue-level">Lanjut Misi Berikutnya ⏩</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script Aplikasi -->
+  <script src="app.js"></script>
+</body>
+</html>
