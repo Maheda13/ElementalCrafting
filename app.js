@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * ZATCRAFT — LABORATORIUM KARTU MATERI & CAMPURAN (SMP KELAS 7)
+ * ELEMENTALCRAFTING — LABORATORIUM KARTU MATERI & CAMPURAN (SMP KELAS 7)
  * ============================================================================
  * Pengembang: Reza A. Maheda, S.Si. & Tim Sains
  * Tema: Clean Light Laboratory & Illustrated Science Cards
@@ -1110,9 +1110,9 @@
   }
 
   // ==========================================================================
-  // 6. ENGINE UTAMA APLIKASI ZATCRAFT V2.4
+  // 6. ENGINE UTAMA APLIKASI ELEMENTALCRAFTING V2.4
   // ==========================================================================
-  class ZatCraftApp {
+  class ElementalCraftingApp {
     constructor() {
       this.currentMode = 'unsur_senyawa';
 
@@ -1128,6 +1128,7 @@
           tubeCounts: { unsur: 0, senyawa: 0 },
           missionIndex: 0,
           missionProgress: 0,
+          missionUniqueItems: [],
         },
         campuran: {
           deck: [],
@@ -1136,6 +1137,7 @@
           tubeCounts: { homogen: 0, koloid: 0, heterogen: 0 },
           missionIndex: 0,
           missionProgress: 0,
+          missionUniqueItems: [],
         },
       };
 
@@ -1149,75 +1151,84 @@
 
       this.initDeckForMode('unsur_senyawa');
       this.initDeckForMode('campuran');
-      this.switchMode('unsur_senyawa');
+      if (window.location.hash === '#campuran') {
+        this.switchMode('campuran');
+      } else {
+        this.switchMode('unsur_senyawa');
+      }
     }
 
     initMissionsData() {
       this.missions = {
         unsur_senyawa: [
           {
-            title: 'Misi 1: Sintesis Molekul Gas Diatomik',
-            desc: 'Gabungkan 2 atom gas sejenis di meja (cth: H+H ➔ H₂, O+O ➔ O₂, atau Cl+Cl ➔ Cl₂).',
-            type: 'craft_kind',
+            title: 'Misi 1: Sintesis 3 Molekul Gas Diatomik Berbeda',
+            desc: 'Gabungkan atom gas sejenis di Meja Molekul untuk membentuk 3 jenis gas diatomik BERBEDA (pilihan: H₂, O₂, N₂, Cl₂)!',
+            type: 'craft_unique_kind',
             targetKind: 'molekul_unsur',
-            target: 1,
-            reward: 50,
-          },
-          {
-            title: 'Misi 2: Sintesis Molekul Senyawa (Air H₂O)',
-            desc: 'Gabungkan Hidrogen dan Oksigen di meja untuk membuat Air.',
-            type: 'craft_card',
-            targetCardId: 'H2O',
-            target: 1,
+            target: 3,
             reward: 60,
           },
           {
-            title: 'Misi 3: Sintesis Garam Dapur (NaCl)',
-            desc: 'Gabungkan Natrium (Na) dan Klorin di Meja Molekul.',
-            type: 'craft_card',
-            targetCardId: 'NaCl',
-            target: 1,
-            reward: 60,
+            title: 'Misi 2: Sintesis 3 Senyawa Sederhana Berbeda',
+            desc: 'Gabungkan atom berbeda jenis di Meja Molekul untuk membentuk 3 senyawa BERBEDA (Air H₂O, Garam Dapur NaCl, Karbon Dioksida CO₂)!',
+            type: 'craft_unique_category',
+            targetCategory: 'senyawa',
+            targetCardIds: ['H2O', 'NaCl', 'CO2'],
+            target: 3,
+            reward: 70,
           },
           {
-            title: 'Misi 4: Klasifikasikan ke Tabung Unsur',
-            desc: 'Tarik 3 molekul gas stabil (H₂, O₂, N₂, Cl₂) atau unsur padat (Fe, C, Au) ke Tabung Unsur!',
-            type: 'classify_unsur_valid',
+            title: 'Misi 3: Sintesis 3 Senyawa Kimia Lanjutan Berbeda',
+            desc: 'Ciptakan 3 jenis senyawa lanjutan BERBEDA di Meja Molekul (Karat Fe₂O₃, Gas Metana CH₄, Gas Amonia NH₃, atau Asam HCl)!',
+            type: 'craft_unique_category',
+            targetCategory: 'senyawa',
+            targetCardIds: ['Fe2O3', 'CH4', 'NH3', 'HCl'],
             target: 3,
             reward: 80,
+          },
+          {
+            title: 'Misi 4: Klasifikasikan 3 Molekul Berbeda ke Tabung Sains',
+            desc: 'Tarik 3 jenis molekul BERBEDA yang telah kamu buat ke Tabung Unsur (gas diatomik H₂/O₂/N₂/Cl₂) atau Tabung Senyawa!',
+            type: 'classify_unique_molecule',
+            target: 3,
+            reward: 90,
           },
         ],
         campuran: [
           {
-            title: 'Misi 1: Racik Larutan Homogen',
-            desc: 'Campurkan Air dengan Garam atau Gula di Meja Racik.',
-            type: 'craft_category',
+            title: 'Misi 1: Racik 3 Larutan Homogen Berbeda',
+            desc: 'Campurkan Air dengan 3 bahan berbeda di Meja Racik untuk membuat 3 larutan homogen BERBEDA (Air Garam, Larutan Gula, dan Larutan Teh)!',
+            type: 'craft_unique_category',
             targetCategory: 'homogen',
-            target: 1,
-            reward: 50,
+            targetCardIds: ['AIR_GARAM', 'AIR_GULA', 'AIR_TEH'],
+            target: 3,
+            reward: 60,
           },
           {
-            title: 'Misi 2: Ciptakan Koloid Pertama',
-            desc: 'Campurkan Air dengan Bubuk Susu atau Kelapa Parut.',
-            type: 'craft_category',
+            title: 'Misi 2: Ciptakan 3 Sistem Koloid Berbeda',
+            desc: 'Campurkan Air dengan 3 bahan berbeda untuk menghasilkan 3 sistem koloid BERBEDA (Susu Segar, Santan Kelapa, dan Air Sabun)!',
+            type: 'craft_unique_category',
             targetCategory: 'koloid',
-            target: 1,
-            reward: 60,
+            targetCardIds: ['SUSU_SEGAR', 'SANTAN', 'AIR_SABUN'],
+            target: 3,
+            reward: 70,
           },
           {
-            title: 'Misi 3: Buat Campuran Heterogen',
-            desc: 'Campurkan Air dengan Bubuk Kopi, Pasir, atau Minyak Goreng.',
-            type: 'craft_category',
+            title: 'Misi 3: Buat 3 Campuran Heterogen Berbeda',
+            desc: 'Campurkan Air dengan 3 bahan berbeda untuk menghasilkan 3 campuran heterogen BERBEDA (Kopi Tubruk, Air Lumpur, dan Minyak & Air)!',
+            type: 'craft_unique_category',
             targetCategory: 'heterogen',
-            target: 1,
-            reward: 60,
-          },
-          {
-            title: 'Misi 4: Klasifikasikan Hasil Campuran',
-            desc: 'Tarik 3 hasil campuran yang kamu buat ke Beaker Homogen, Koloid, atau Heterogen!',
-            type: 'classify_any',
+            targetCardIds: ['KOPI_TUBRUK', 'AIR_LUMPUR', 'MINYAK_AIR'],
             target: 3,
             reward: 80,
+          },
+          {
+            title: 'Misi 4: Klasifikasikan 3 Jenis Campuran Berbeda ke Beaker Sains',
+            desc: 'Tarik 3 jenis campuran BERBEDA yang telah kamu buat ke Beaker Sains (Homogen, Koloid, atau Heterogen)!',
+            type: 'classify_unique_mixture',
+            target: 3,
+            reward: 90,
           },
         ],
       };
@@ -1284,14 +1295,20 @@
 
       if (mode === 'unsur_senyawa') {
         rawPool = [
-          'H', 'H', 'H', 'H', 'O', 'O', 'O', 'O',
-          'C', 'C', 'Fe', 'Fe', 'Na', 'Na', 'Cl', 'Cl', 'N', 'N', 'Au', 'Au'
+          'H', 'H', 'H', 'H', 'H', 'H',
+          'O', 'O', 'O', 'O',
+          'C', 'C', 'C',
+          'Fe', 'Fe',
+          'Na', 'Na',
+          'Cl', 'Cl', 'Cl', 'Cl',
+          'N', 'N', 'N', 'N',
+          'Au', 'Au'
         ];
       } else {
         rawPool = [
-          'AIR', 'AIR', 'AIR', 'AIR', 'AIR', 'AIR',
-          'GARAM', 'GARAM', 'GULA', 'GULA',
-          'SUSU_BUBUK', 'SUSU_BUBUK', 'KELAPA', 'KELAPA',
+          'AIR', 'AIR', 'AIR', 'AIR', 'AIR', 'AIR', 'AIR', 'AIR', 'AIR', 'AIR',
+          'GARAM', 'GARAM', 'GULA', 'GULA', 'TEH', 'TEH',
+          'SUSU_BUBUK', 'SUSU_BUBUK', 'KELAPA', 'KELAPA', 'SABUN', 'SABUN',
           'KOPI_BUBUK', 'KOPI_BUBUK', 'PASIR', 'PASIR', 'MINYAK', 'MINYAK'
         ];
       }
@@ -1578,7 +1595,7 @@
         this.showToast(praise, 'success');
         this.removeCardFromAnywhere(cardData.instanceId);
 
-        this.checkMissionClassification(targetType, cardData.kind);
+        this.checkMissionClassification(targetType, cardData.kind, cardData.id);
 
         if (state.hand.length < 3) {
           setTimeout(() => {
@@ -1847,19 +1864,45 @@
       }
     }
 
-    // --- MISSIONS PROGRESSION ---
-    checkMissionClassification(category, kind) {
+    // --- MISSIONS PROGRESSION (DENGAN SYARAT 3 JENIS BERBEDA PER MISI) ---
+    checkMissionClassification(category, kind, cardId) {
       const state = this.modeState[this.currentMode];
       const missionList = this.missions[this.currentMode];
       const mission = missionList[state.missionIndex];
       if (!mission) return;
 
-      if (mission.type === 'classify_any') {
-        state.missionProgress += 1;
-        this.checkMissionThreshold(mission, state);
+      if (!state.missionUniqueItems) {
+        state.missionUniqueItems = [];
+      }
+
+      let matched = false;
+      if (mission.type === 'classify_unique_molecule') {
+        // Lab 1: Hanya molekul unsur gas diatomik atau senyawa yang dihitung
+        if (kind === 'molekul_unsur' || kind === 'molekul_senyawa') {
+          matched = true;
+        }
+      } else if (mission.type === 'classify_unique_mixture') {
+        // Lab 2: Seluruh hasil campuran (homogen, koloid, heterogen) dihitung
+        if (['homogen', 'koloid', 'heterogen'].includes(category)) {
+          matched = true;
+        }
+      } else if (mission.type === 'classify_any') {
+        matched = true;
       } else if (mission.type === 'classify_unsur_valid' && category === 'unsur') {
-        state.missionProgress += 1;
-        this.checkMissionThreshold(mission, state);
+        matched = true;
+      }
+
+      if (matched) {
+        if (state.missionUniqueItems.includes(cardId)) {
+          const cardName = CARDS_DB[cardId]?.name || cardId;
+          this.showToast(`Zat ${cardName} sudah pernah dihitung dalam misi ini! Klasifikasikan jenis zat yang BERBEDA (${state.missionProgress}/${mission.target}).`, 'info');
+        } else {
+          state.missionUniqueItems.push(cardId);
+          state.missionProgress += 1;
+          const cardName = CARDS_DB[cardId]?.name || cardId;
+          this.showToast(`🎯 Kemajuan Misi (${state.missionProgress}/${mission.target}): ${cardName} berhasil dicatat!`, 'bonus');
+          this.checkMissionThreshold(mission, state);
+        }
       }
     }
 
@@ -1869,15 +1912,38 @@
       const mission = missionList[state.missionIndex];
       if (!mission) return;
 
-      if (mission.type === 'craft_card' && mission.targetCardId === resultId) {
-        state.missionProgress += 1;
-        this.checkMissionThreshold(mission, state);
+      if (!state.missionUniqueItems) {
+        state.missionUniqueItems = [];
+      }
+
+      let matched = false;
+      if (mission.type === 'craft_unique_kind' && mission.targetKind === resultKind) {
+        matched = true;
+      } else if (mission.type === 'craft_unique_category' && mission.targetCategory === resultCategory) {
+        if (mission.targetCardIds && !mission.targetCardIds.includes(resultId)) {
+          matched = false;
+        } else {
+          matched = true;
+        }
+      } else if (mission.type === 'craft_card' && mission.targetCardId === resultId) {
+        matched = true;
       } else if (mission.type === 'craft_category' && mission.targetCategory === resultCategory) {
-        state.missionProgress += 1;
-        this.checkMissionThreshold(mission, state);
+        matched = true;
       } else if (mission.type === 'craft_kind' && mission.targetKind === resultKind) {
-        state.missionProgress += 1;
-        this.checkMissionThreshold(mission, state);
+        matched = true;
+      }
+
+      if (matched) {
+        if (state.missionUniqueItems.includes(resultId)) {
+          const cardName = CARDS_DB[resultId]?.name || resultId;
+          this.showToast(`Molekul ${cardName} sudah pernah dibuat untuk misi ini. Silakan buat jenis molekul yang BERBEDA! (${state.missionProgress}/${mission.target})`, 'info');
+        } else {
+          state.missionUniqueItems.push(resultId);
+          state.missionProgress += 1;
+          const cardName = CARDS_DB[resultId]?.name || resultId;
+          this.showToast(`🎯 Kemajuan Misi (${state.missionProgress}/${mission.target}): ${cardName} jenis baru berhasil dicatat!`, 'bonus');
+          this.checkMissionThreshold(mission, state);
+        }
       }
     }
 
@@ -1892,6 +1958,7 @@
         this.openLevelUpModal(mission);
         state.missionIndex += 1;
         state.missionProgress = 0;
+        state.missionUniqueItems = [];
 
         this.updateStatsUI();
         this.updateMissionUI();
@@ -1916,7 +1983,7 @@
 
       const pct = Math.min(100, Math.round((state.missionProgress / mission.target) * 100));
       if (this.dom.missionFill) this.dom.missionFill.style.width = `${pct}%`;
-      if (this.dom.missionText) this.dom.missionText.textContent = `${state.missionProgress} / ${mission.target}`;
+      if (this.dom.missionText) this.dom.missionText.textContent = `${state.missionProgress} / ${mission.target} Jenis`;
     }
 
     updateStatsUI() {
@@ -2129,6 +2196,7 @@
       if (this.dom.btnClearScores) {
         this.dom.btnClearScores.addEventListener('click', () => {
           if (confirm('Hapus seluruh riwayat peringkat di peramban ini?')) {
+            localStorage.removeItem('elementalcrafting_leaderboard');
             localStorage.removeItem('zatcraft_leaderboard');
             this.renderLeaderboard();
             this.showToast('Data peringkat direset.', 'info');
@@ -2247,7 +2315,7 @@
     }
 
     getStoredScores() {
-      const data = localStorage.getItem('zatcraft_leaderboard');
+      const data = localStorage.getItem('elementalcrafting_leaderboard') || localStorage.getItem('zatcraft_leaderboard');
       if (data) {
         try {
           return JSON.parse(data);
@@ -2273,7 +2341,7 @@
 
       scores.sort((a, b) => b.score - a.score);
       const top10 = scores.slice(0, 10);
-      localStorage.setItem('zatcraft_leaderboard', JSON.stringify(top10));
+      localStorage.setItem('elementalcrafting_leaderboard', JSON.stringify(top10));
       this.renderLeaderboard();
       this.showToast(`Skor untuk ${name} berhasil disimpan! 🏆`, 'success');
     }
@@ -2323,6 +2391,7 @@
 
   // --- BOOTSTRAP ---
   window.addEventListener('DOMContentLoaded', () => {
-    window.zatCraft = new ZatCraftApp();
+    window.elementalCrafting = new ElementalCraftingApp();
+    window.zatCraft = window.elementalCrafting;
   });
 })();
