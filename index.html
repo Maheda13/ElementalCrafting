@@ -531,9 +531,9 @@
 
       <!-- Status Bar & Stats -->
       <div class="leaderboard-status-bar">
-        <div class="cloud-status-badge offline" id="cloud-status-badge">
+        <div class="cloud-status-badge online" id="cloud-status-badge">
           <span class="status-dot"></span>
-          <span id="cloud-status-text">Mode Lokal (Offline)</span>
+          <span id="cloud-status-text">Cloud Google Sheets Aktif</span>
         </div>
         <div class="lb-player-stat">
           Skor Kamu: <strong id="lb-current-score">0</strong> <span class="lb-stat-sep">•</span> Lv. <strong id="lb-current-level">1</strong>
@@ -582,9 +582,9 @@
             Sinkronkan skor seluruh siswa secara online langsung ke spreadsheet guru menggunakan Google Apps Script Web App.
           </p>
           <div class="cloud-input-group">
-            <input type="url" id="input-cloud-url" placeholder="https://script.google.com/macros/s/.../exec" spellcheck="false">
+            <input type="url" id="input-cloud-url" value="https://script.google.com/macros/s/AKfycbzIGZ_PeVHOADYayezK0nrFzma_7FWuViKyK3yxUDln45esVsGz-8RTKaMlfOiibeb0/exec" placeholder="https://script.google.com/macros/s/.../exec" spellcheck="false">
             <button type="button" id="btn-save-cloud-url" class="btn-secondary">Simpan URL</button>
-            <button type="button" id="btn-reset-cloud-url" class="btn-text" title="Hapus URL cloud dan gunakan penyimpanan lokal">Reset</button>
+            <button type="button" id="btn-reset-cloud-url" class="btn-text" title="Reset URL ke bawaan spreadsheet kelas">Reset</button>
           </div>
           <div class="cloud-tips-box">
             💡 Kode Google Apps Script siap pakai berada di folder <code>GAS/Code.gs</code>. Deploy sebagai <em>Aplikasi Web</em> dengan hak akses <em>Siapa saja (Anyone)</em>.

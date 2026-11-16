@@ -1112,6 +1112,8 @@
   // ==========================================================================
   // 6. ENGINE UTAMA APLIKASI ELEMENTALCRAFTING V2.4
   // ==========================================================================
+  const DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbzIGZ_PeVHOADYayezK0nrFzma_7FWuViKyK3yxUDln45esVsGz-8RTKaMlfOiibeb0/exec';
+
   class ElementalCraftingApp {
     constructor() {
       this.currentMode = 'unsur_senyawa';
@@ -2389,9 +2391,9 @@
       if (this.dom.btnResetCloudUrl) {
         this.dom.btnResetCloudUrl.addEventListener('click', () => {
           this.setCloudUrl('');
-          if (this.dom.inputCloudUrl) this.dom.inputCloudUrl.value = '';
-          this.showToast('URL Cloud dinonaktifkan. Mode Lokal aktif.', 'info');
-          this.fetchLeaderboardData(false);
+          if (this.dom.inputCloudUrl) this.dom.inputCloudUrl.value = DEFAULT_GAS_URL;
+          this.showToast('URL direset ke Google Sheets bawaan kelas.', 'info');
+          this.fetchLeaderboardData(true);
         });
       }
 
@@ -2545,7 +2547,11 @@
     }
 
     getCloudUrl() {
-      return (localStorage.getItem('elementalcrafting_cloud_url') || '').trim();
+      const saved = localStorage.getItem('elementalcrafting_cloud_url');
+      if (saved !== null && saved !== undefined && saved !== '') {
+        return saved.trim();
+      }
+      return DEFAULT_GAS_URL;
     }
 
     setCloudUrl(url) {
