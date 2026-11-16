@@ -123,40 +123,81 @@
             <span class="zone-num">1</span>
             <h3>Klasifikasi Materi</h3>
           </div>
-          <span class="zone-hint">Klasifikasikan kartu ke tabung yang tepat (+10 Poin)</span>
+          <span class="zone-hint">Simpan kartu ke peti yang tepat (+10 Poin)</span>
         </div>
 
         <div class="tubes-grid tubes-grid-2">
-          <!-- Tabung Unsur -->
+          <!-- Peti Unsur -->
           <div class="classification-tube tube-unsur" data-target-type="unsur" id="tube-unsur">
-            <div class="tube-glass">
-              <div class="tube-rim"></div>
-              <div class="tube-ticks"><span></span><span></span><span></span></div>
-              <div class="tube-liquid liquid-unsur"></div>
-              <div class="tube-bubbles"><span></span><span></span><span></span></div>
+            <div class="chest-vault">
+              <svg viewBox="0 0 76 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+                <ellipse cx="38" cy="65" rx="30" ry="4" fill="#0f172a" fill-opacity="0.12"/>
+                <rect x="8" y="26" width="60" height="36" rx="6" fill="#be123c" stroke="#881337" stroke-width="2.5"/>
+                <rect x="12" y="30" width="52" height="28" rx="4" fill="#e11d48"/>
+                <rect x="16" y="26" width="6" height="36" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+                <rect x="54" y="26" width="6" height="36" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+                <rect x="25" y="34" width="26" height="20" rx="4" fill="#fff1f2" stroke="#fda4af" stroke-width="1.5"/>
+                <polygon points="38,37 46,44 38,51 30,44" fill="#e11d48"/>
+                <circle cx="38" cy="44" r="2.5" fill="#ffffff"/>
+                <line x1="33" y1="44" x2="43" y2="44" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M6 26C6 15 16 8 38 8C60 8 70 15 70 26H6Z" fill="#be123c" stroke="#881337" stroke-width="2.5"/>
+                <path d="M10 24C10 17 18 11 38 11C58 11 66 17 66 24H10Z" fill="#fb7185" fill-opacity="0.5"/>
+                <path d="M16 26C16 18 19 12 22 10H16C13 12 10 18 10 26H16Z" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+                <path d="M54 26C54 18 57 12 60 10H54C51 12 48 18 48 26H54Z" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+                <rect x="32" y="21" width="12" height="12" rx="3" fill="#fbbf24" stroke="#d97706" stroke-width="2"/>
+                <circle cx="38" cy="27" r="2" fill="#78350f"/>
+                <path d="M30 8C30 5 33 4 38 4C43 4 46 5 46 8" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
             </div>
             <div class="tube-info">
               <div class="tube-badge badge-unsur">UNSUR</div>
-              <h4>Tabung Unsur</h4>
-              <p class="tube-target-hint">Tarik kartu ke sini</p>
+              <h4>Peti Unsur</h4>
+              <p class="tube-target-hint">Tarik kartu ke peti ini</p>
             </div>
-            <div class="tube-counter" id="count-unsur">0 Terkumpul</div>
+            <div class="chest-chips-container" id="chips-unsur">
+              <span class="chip-empty">Belum ada zat tersimpan</span>
+            </div>
+            <div class="tube-counter" id="count-unsur">0 Tersimpan</div>
+            <button type="button" class="btn-inspect-chest" data-chest-type="unsur" title="Periksa daftar unsur tersimpan">
+              <span>🔍 Buka Peti (0)</span>
+            </button>
           </div>
 
-          <!-- Tabung Senyawa -->
+          <!-- Peti Senyawa -->
           <div class="classification-tube tube-senyawa" data-target-type="senyawa" id="tube-senyawa">
-            <div class="tube-glass">
-              <div class="tube-rim"></div>
-              <div class="tube-ticks"><span></span><span></span><span></span></div>
-              <div class="tube-liquid liquid-senyawa"></div>
-              <div class="tube-bubbles"><span></span><span></span><span></span></div>
+            <div class="chest-vault">
+              <svg viewBox="0 0 76 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+                <ellipse cx="38" cy="65" rx="30" ry="4" fill="#0f172a" fill-opacity="0.12"/>
+                <rect x="8" y="26" width="60" height="36" rx="6" fill="#0369a1" stroke="#075985" stroke-width="2.5"/>
+                <rect x="12" y="30" width="52" height="28" rx="4" fill="#0284c7"/>
+                <rect x="16" y="26" width="6" height="36" fill="#38bdf8" stroke="#0284c7" stroke-width="1.5"/>
+                <rect x="54" y="26" width="6" height="36" fill="#38bdf8" stroke="#0284c7" stroke-width="1.5"/>
+                <rect x="25" y="34" width="26" height="20" rx="4" fill="#f0f9ff" stroke="#bae6fd" stroke-width="1.5"/>
+                <circle cx="34" cy="44" r="5" fill="#38bdf8"/>
+                <circle cx="42" cy="44" r="5" fill="#0369a1"/>
+                <line x1="34" y1="44" x2="42" y2="44" stroke="#ffffff" stroke-width="2"/>
+                <circle cx="32.5" cy="42" r="1.5" fill="#ffffff" opacity="0.8"/>
+                <path d="M6 26C6 15 16 8 38 8C60 8 70 15 70 26H6Z" fill="#0369a1" stroke="#075985" stroke-width="2.5"/>
+                <path d="M10 24C10 17 18 11 38 11C58 11 66 17 66 24H10Z" fill="#38bdf8" fill-opacity="0.5"/>
+                <path d="M16 26C16 18 19 12 22 10H16C13 12 10 18 10 26H16Z" fill="#38bdf8" stroke="#0284c7" stroke-width="1.5"/>
+                <path d="M54 26C54 18 57 12 60 10H54C51 12 48 18 48 26H54Z" fill="#38bdf8" stroke="#0284c7" stroke-width="1.5"/>
+                <rect x="32" y="21" width="12" height="12" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                <circle cx="38" cy="27" r="2" fill="#0369a1"/>
+                <path d="M30 8C30 5 33 4 38 4C43 4 46 5 46 8" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
             </div>
             <div class="tube-info">
               <div class="tube-badge badge-senyawa">SENYAWA</div>
-              <h4>Tabung Senyawa</h4>
-              <p class="tube-target-hint">Tarik kartu ke sini</p>
+              <h4>Peti Senyawa</h4>
+              <p class="tube-target-hint">Tarik kartu ke peti ini</p>
             </div>
-            <div class="tube-counter" id="count-senyawa">0 Terkumpul</div>
+            <div class="chest-chips-container" id="chips-senyawa">
+              <span class="chip-empty">Belum ada zat tersimpan</span>
+            </div>
+            <div class="tube-counter" id="count-senyawa">0 Tersimpan</div>
+            <button type="button" class="btn-inspect-chest" data-chest-type="senyawa" title="Periksa daftar senyawa tersimpan">
+              <span>🔍 Buka Peti (0)</span>
+            </button>
           </div>
         </div>
       </section>
@@ -236,7 +277,13 @@
               <h4>Larutan</h4>
               <p class="tube-target-hint">Tarik kartu ke sini</p>
             </div>
+            <div class="chest-chips-container" id="chips-homogen">
+              <span class="chip-empty">Belum ada zat</span>
+            </div>
             <div class="tube-counter" id="count-homogen">0 Terkumpul</div>
+            <button type="button" class="btn-inspect-chest" data-chest-type="homogen" title="Periksa isi larutan homogen">
+              <span>🔍 Buka Beaker (0)</span>
+            </button>
           </div>
 
           <!-- Wadah Koloid -->
@@ -252,7 +299,13 @@
               <h4>Koloid</h4>
               <p class="tube-target-hint">Tarik kartu ke sini</p>
             </div>
+            <div class="chest-chips-container" id="chips-koloid">
+              <span class="chip-empty">Belum ada zat</span>
+            </div>
             <div class="tube-counter" id="count-koloid">0 Terkumpul</div>
+            <button type="button" class="btn-inspect-chest" data-chest-type="koloid" title="Periksa isi sistem koloid">
+              <span>🔍 Buka Beaker (0)</span>
+            </button>
           </div>
 
           <!-- Wadah Heterogen -->
@@ -268,7 +321,13 @@
               <h4>Suspensi</h4>
               <p class="tube-target-hint">Tarik kartu ke sini</p>
             </div>
+            <div class="chest-chips-container" id="chips-heterogen">
+              <span class="chip-empty">Belum ada zat</span>
+            </div>
             <div class="tube-counter" id="count-heterogen">0 Terkumpul</div>
+            <button type="button" class="btn-inspect-chest" data-chest-type="heterogen" title="Periksa isi campuran heterogen">
+              <span>🔍 Buka Beaker (0)</span>
+            </button>
           </div>
         </div>
       </section>
@@ -470,29 +529,72 @@
         <p>Rekor skor tertinggi siswa SMPIT Darul Fikri Sidoarjo.</p>
       </div>
 
-      <form id="form-save-score" class="save-score-form">
-        <input type="text" id="input-player-name" placeholder="Ketik Nama Siswa & Kelas (cth: Ahmad 7A)..." maxlength="25" required>
-        <button type="submit" class="btn-primary">Simpan Rekor</button>
-      </form>
+      <!-- Status Bar & Stats -->
+      <div class="leaderboard-status-bar">
+        <div class="cloud-status-badge offline" id="cloud-status-badge">
+          <span class="status-dot"></span>
+          <span id="cloud-status-text">Mode Lokal (Offline)</span>
+        </div>
+        <div class="lb-player-stat">
+          Skor Kamu: <strong id="lb-current-score">0</strong> <span class="lb-stat-sep">•</span> Lv. <strong id="lb-current-level">1</strong>
+        </div>
+        <button type="button" id="btn-refresh-scores" class="btn-refresh" title="Perbarui data peringkat">
+          <span class="refresh-icon">🔄</span>
+          <span class="refresh-text">Segarkan</span>
+        </button>
+      </div>
 
+      <!-- Form Simpan Skor -->
+      <form id="form-save-score" class="save-score-form">
+        <input type="text" id="input-player-name" placeholder="Ketik Nama Siswa & Kelas (cth: Ahmad 7A)..." maxlength="28" required autocomplete="name">
+        <button type="submit" id="btn-submit-score" class="btn-primary">
+          <span id="submit-score-icon">🚀</span>
+          <span id="submit-score-text">Simpan Rekor</span>
+        </button>
+      </form>
+      <div id="save-score-feedback" class="save-feedback" style="display: none;"></div>
+
+      <!-- Tabel Leaderboard -->
       <div class="leaderboard-table-wrapper">
         <table class="leaderboard-table">
           <thead>
             <tr>
-              <th>Peringkat</th>
+              <th style="width: 75px;">Peringkat</th>
               <th>Nama Siswa</th>
-              <th>Skor</th>
-              <th>Level</th>
-              <th>Tanggal</th>
+              <th style="width: 80px; text-align: right;">Skor</th>
+              <th style="width: 60px; text-align: center;">Level</th>
+              <th style="width: 105px; text-align: right;">Tanggal</th>
             </tr>
           </thead>
           <tbody id="leaderboard-tbody"></tbody>
         </table>
       </div>
 
+      <!-- Pengaturan Cloud Google Sheets (Collapsible) -->
+      <div class="cloud-config-drawer">
+        <button type="button" class="btn-toggle-cloud" id="btn-toggle-cloud-config">
+          <span class="cloud-icon">📊</span>
+          <span>Hubungkan ke Google Sheets Kelas</span>
+          <span class="toggle-arrow" id="cloud-toggle-arrow">▼</span>
+        </button>
+        <div class="cloud-config-content" id="cloud-config-panel" style="display: none;">
+          <p class="cloud-help-text">
+            Sinkronkan skor seluruh siswa secara online langsung ke spreadsheet guru menggunakan Google Apps Script Web App.
+          </p>
+          <div class="cloud-input-group">
+            <input type="url" id="input-cloud-url" placeholder="https://script.google.com/macros/s/.../exec" spellcheck="false">
+            <button type="button" id="btn-save-cloud-url" class="btn-secondary">Simpan URL</button>
+            <button type="button" id="btn-reset-cloud-url" class="btn-text" title="Hapus URL cloud dan gunakan penyimpanan lokal">Reset</button>
+          </div>
+          <div class="cloud-tips-box">
+            💡 Kode Google Apps Script siap pakai berada di folder <code>GAS/Code.gs</code>. Deploy sebagai <em>Aplikasi Web</em> dengan hak akses <em>Siapa saja (Anyone)</em>.
+          </div>
+        </div>
+      </div>
+
       <div class="modal-actions">
-        <button class="btn-secondary" id="btn-clear-scores">Reset Data</button>
-        <button class="btn-primary" data-close="modal-leaderboard">Tutup</button>
+        <button type="button" class="btn-secondary" id="btn-clear-scores">Reset Data Lokal</button>
+        <button type="button" class="btn-primary" data-close="modal-leaderboard">Tutup</button>
       </div>
     </div>
   </div>
@@ -514,6 +616,30 @@
 
       <div class="modal-actions">
         <button class="btn-primary" id="btn-continue-level">Lanjut Misi Berikutnya ⏩</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Detail Isi Peti / Inventaris Materi -->
+  <div id="modal-chest-detail" class="modal-overlay" aria-hidden="true">
+    <div class="modal-box chest-modal-box">
+      <button class="modal-close" data-close="modal-chest-detail">&times;</button>
+      <div class="modal-header">
+        <span class="modal-icon" id="chest-modal-icon">📦</span>
+        <div style="flex: 1; text-align: left;">
+          <h2 id="chest-modal-title">Daftar Isi Peti</h2>
+          <p id="chest-modal-subtitle">Zat yang telah berhasil kamu temukan dan simpan di sini:</p>
+        </div>
+      </div>
+
+      <div class="chest-modal-content">
+        <div id="chest-items-grid" class="chest-items-grid">
+          <!-- Item card diisi secara dinamis via JavaScript -->
+        </div>
+      </div>
+
+      <div class="modal-actions" style="margin-top: 14px;">
+        <button class="btn-primary" data-close="modal-chest-detail">Tutup Peti</button>
       </div>
     </div>
   </div>

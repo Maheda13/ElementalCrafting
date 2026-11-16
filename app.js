@@ -1126,6 +1126,7 @@
           hand: [],
           benchSlots: [null, null],
           tubeCounts: { unsur: 0, senyawa: 0 },
+          chestItems: { unsur: [], senyawa: [] },
           missionIndex: 0,
           missionProgress: 0,
           missionUniqueItems: [],
@@ -1135,6 +1136,7 @@
           hand: [],
           benchSlots: [null, null],
           tubeCounts: { homogen: 0, koloid: 0, heterogen: 0 },
+          chestItems: { homogen: [], koloid: [], heterogen: [] },
           missionIndex: 0,
           missionProgress: 0,
           missionUniqueItems: [],
@@ -1188,8 +1190,8 @@
             reward: 80,
           },
           {
-            title: 'Misi 4: Klasifikasikan 3 Molekul Berbeda ke Tabung Sains',
-            desc: 'Tarik 3 jenis molekul BERBEDA yang telah kamu buat ke Tabung Unsur (gas diatomik H₂/O₂/N₂/Cl₂) atau Tabung Senyawa!',
+            title: 'Misi 4: Klasifikasikan 3 Molekul Berbeda ke Peti Sains',
+            desc: 'Tarik 3 jenis molekul BERBEDA yang telah kamu buat ke Peti Unsur (gas diatomik H₂/O₂/N₂/Cl₂) atau ke Peti Senyawa!',
             type: 'classify_unique_molecule',
             target: 3,
             reward: 90,
@@ -1264,6 +1266,23 @@
         inputPlayerName: document.getElementById('input-player-name'),
         btnClearScores: document.getElementById('btn-clear-scores'),
         btnContinueLevel: document.getElementById('btn-continue-level'),
+        // Leaderboard Cloud Elements
+        modalLeaderboard: document.getElementById('modal-leaderboard'),
+        cloudStatusBadge: document.getElementById('cloud-status-badge'),
+        cloudStatusText: document.getElementById('cloud-status-text'),
+        lbCurrentScore: document.getElementById('lb-current-score'),
+        lbCurrentLevel: document.getElementById('lb-current-level'),
+        btnRefreshScores: document.getElementById('btn-refresh-scores'),
+        btnSubmitScore: document.getElementById('btn-submit-score'),
+        submitScoreIcon: document.getElementById('submit-score-icon'),
+        submitScoreText: document.getElementById('submit-score-text'),
+        saveScoreFeedback: document.getElementById('save-score-feedback'),
+        btnToggleCloudConfig: document.getElementById('btn-toggle-cloud-config'),
+        cloudToggleArrow: document.getElementById('cloud-toggle-arrow'),
+        cloudConfigPanel: document.getElementById('cloud-config-panel'),
+        inputCloudUrl: document.getElementById('input-cloud-url'),
+        btnSaveCloudUrl: document.getElementById('btn-save-cloud-url'),
+        btnResetCloudUrl: document.getElementById('btn-reset-cloud-url'),
         // Lab 1
         tubeUnsur: document.getElementById('tube-unsur'),
         tubeSenyawa: document.getElementById('tube-senyawa'),
@@ -1567,7 +1586,7 @@
       if (DIATOMIC_ATOMS.includes(cardData.id)) {
         this.sound.sfxWrong();
         this.shakeElement(tubeEl);
-        this.showToast(`Atom ${cardData.name} (${cardData.formula}) jarang ditemukan tunggal bebas di alam! Gabungkan dulu di Meja Molekul menjadi molekul gas diatomik (${cardData.id}₂).`, 'error');
+        this.showToast(`Atom ${cardData.name} (${cardData.formula}) jarang ditemukan tunggal bebas di alam! Gabungkan dulu di Meja Molekul menjadi molekul gas diatomik (${cardData.id}₂) sebelum disimpan ke Peti Unsur.`, 'error');
         return;
       }
 
@@ -1584,13 +1603,31 @@
           state.tubeCounts[targetType] += 1;
         }
 
+        if (!state.chestItems) state.chestItems = {};
+        if (!state.chestItems[targetType]) state.chestItems[targetType] = [];
+        state.chestItems[targetType].push({
+          id: cardData.id,
+          name: cardData.name,
+          formula: cardData.formula,
+          pts: cardData.pts,
+          state: cardData.state,
+          kind: cardData.kind,
+          trivia: cardData.trivia,
+          category: cardData.category,
+        });
+
         this.sound.sfxCorrect();
         const rect = tubeEl.getBoundingClientRect();
         this.fx.burst(rect.left + rect.width / 2, rect.top + rect.height / 2, 24);
 
-        let praise = `Benar! ${cardData.name} tepat masuk ke ${targetType.toUpperCase()}! (+${totalEarned} Poin)`;
+        let targetLabel = targetType.toUpperCase();
+        if (targetType === 'unsur') targetLabel = 'Peti Unsur';
+        else if (targetType === 'senyawa') targetLabel = 'Peti Senyawa';
+        else targetLabel = `Beaker ${targetType.toUpperCase()}`;
+
+        let praise = `Benar! ${cardData.name} tepat disimpan ke ${targetLabel}! (+${totalEarned} Poin)`;
         if (cardData.kind === 'molekul_unsur') {
-          praise = `Tepat sekali! Gas ${cardData.name} (${cardData.formula}) adalah wujud molekul unsur gas yang stabil di alam! (+${totalEarned} Poin)`;
+          praise = `Tepat sekali! Gas ${cardData.name} (${cardData.formula}) adalah wujud molekul gas stabil dan tersimpan rapi di Peti Unsur! (+${totalEarned} Poin)`;
         }
         this.showToast(praise, 'success');
         this.removeCardFromAnywhere(cardData.instanceId);
@@ -1962,6 +1999,15 @@
 
         this.updateStatsUI();
         this.updateMissionUI();
+
+        // Cek jika seluruh misi laboratorium telah tuntas
+        const missionList = this.missions[this.currentMode];
+        if (state.missionIndex >= missionList.length) {
+          setTimeout(() => {
+            this.showToast('🏆 Seluruh Misi Selesai! Simpan rekor skormu ke Papan Peringkat!', 'bonus');
+            this.openLeaderboardModal();
+          }, 1500);
+        }
       }
     }
 
@@ -1993,14 +2039,143 @@
     }
 
     renderTubesUI() {
-      const counts1 = this.modeState.unsur_senyawa.tubeCounts;
-      if (this.dom.countUnsur) this.dom.countUnsur.textContent = `${counts1.unsur} Terkumpul`;
-      if (this.dom.countSenyawa) this.dom.countSenyawa.textContent = `${counts1.senyawa} Terkumpul`;
+      // Lab 1: Peti Unsur & Peti Senyawa
+      const s1 = this.modeState.unsur_senyawa;
+      const counts1 = s1.tubeCounts;
+      if (this.dom.countUnsur) this.dom.countUnsur.textContent = `${counts1.unsur} Tersimpan`;
+      if (this.dom.countSenyawa) this.dom.countSenyawa.textContent = `${counts1.senyawa} Tersimpan`;
+      this.renderChestChips('unsur', s1.chestItems?.unsur || []);
+      this.renderChestChips('senyawa', s1.chestItems?.senyawa || []);
 
-      const counts2 = this.modeState.campuran.tubeCounts;
+      const btnUnsur = document.querySelector('[data-chest-type="unsur"]');
+      if (btnUnsur) btnUnsur.innerHTML = `<span>🔍 Buka Peti (${counts1.unsur})</span>`;
+      const btnSenyawa = document.querySelector('[data-chest-type="senyawa"]');
+      if (btnSenyawa) btnSenyawa.innerHTML = `<span>🔍 Buka Peti (${counts1.senyawa})</span>`;
+
+      // Lab 2: Beaker Campuran
+      const s2 = this.modeState.campuran;
+      const counts2 = s2.tubeCounts;
       if (this.dom.countHomogen) this.dom.countHomogen.textContent = `${counts2.homogen} Terkumpul`;
       if (this.dom.countKoloid) this.dom.countKoloid.textContent = `${counts2.koloid} Terkumpul`;
       if (this.dom.countHeterogen) this.dom.countHeterogen.textContent = `${counts2.heterogen} Terkumpul`;
+      this.renderChestChips('homogen', s2.chestItems?.homogen || []);
+      this.renderChestChips('koloid', s2.chestItems?.koloid || []);
+      this.renderChestChips('heterogen', s2.chestItems?.heterogen || []);
+
+      const btnHomogen = document.querySelector('[data-chest-type="homogen"]');
+      if (btnHomogen) btnHomogen.innerHTML = `<span>🔍 Buka Beaker (${counts2.homogen})</span>`;
+      const btnKoloid = document.querySelector('[data-chest-type="koloid"]');
+      if (btnKoloid) btnKoloid.innerHTML = `<span>🔍 Buka Beaker (${counts2.koloid})</span>`;
+      const btnHeterogen = document.querySelector('[data-chest-type="heterogen"]');
+      if (btnHeterogen) btnHeterogen.innerHTML = `<span>🔍 Buka Beaker (${counts2.heterogen})</span>`;
+    }
+
+    renderChestChips(type, items) {
+      const container = document.getElementById(`chips-${type}`);
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (!items || items.length === 0) {
+        container.innerHTML = '<span class="chip-empty">Belum ada zat tersimpan</span>';
+        return;
+      }
+
+      const uniqueIds = [];
+      const displayItems = [];
+      for (let i = items.length - 1; i >= 0; i--) {
+        const item = items[i];
+        if (!uniqueIds.includes(item.id)) {
+          uniqueIds.push(item.id);
+          displayItems.push(item);
+        }
+        if (displayItems.length >= 4) break;
+      }
+
+      displayItems.forEach((item) => {
+        const pill = document.createElement('span');
+        pill.className = `chest-pill pill-${type}`;
+        pill.textContent = item.formula || item.name;
+        pill.title = `${item.name} (${item.formula})`;
+        container.appendChild(pill);
+      });
+
+      if (items.length > displayItems.length) {
+        const morePill = document.createElement('span');
+        morePill.className = `chest-pill pill-${type}`;
+        morePill.textContent = `+${items.length - displayItems.length}`;
+        morePill.title = `${items.length - displayItems.length} zat lainnya tersimpan`;
+        container.appendChild(morePill);
+      }
+    }
+
+    openChestModal(targetType) {
+      const isLab1 = ['unsur', 'senyawa'].includes(targetType);
+      const state = isLab1 ? this.modeState.unsur_senyawa : this.modeState.campuran;
+      const items = (state.chestItems && state.chestItems[targetType]) ? state.chestItems[targetType] : [];
+
+      const modal = document.getElementById('modal-chest-detail');
+      const titleEl = document.getElementById('chest-modal-title');
+      const subtitleEl = document.getElementById('chest-modal-subtitle');
+      const iconEl = document.getElementById('chest-modal-icon');
+      const grid = document.getElementById('chest-items-grid');
+      if (!modal || !grid) return;
+
+      grid.innerHTML = '';
+
+      let chestName = '';
+      if (targetType === 'unsur') {
+        chestName = 'Peti Unsur Murni';
+        if (iconEl) iconEl.textContent = '💎';
+      } else if (targetType === 'senyawa') {
+        chestName = 'Peti Senyawa Kimia';
+        if (iconEl) iconEl.textContent = '⚗️';
+      } else if (targetType === 'homogen') {
+        chestName = 'Beaker Larutan Homogen';
+        if (iconEl) iconEl.textContent = '🧪';
+      } else if (targetType === 'koloid') {
+        chestName = 'Beaker Sistem Koloid';
+        if (iconEl) iconEl.textContent = '🥛';
+      } else if (targetType === 'heterogen') {
+        chestName = 'Beaker Campuran Heterogen';
+        if (iconEl) iconEl.textContent = '☕';
+      }
+
+      if (titleEl) titleEl.textContent = `📦 Isi ${chestName} (${items.length} Zat Tersimpan)`;
+      if (subtitleEl) subtitleEl.textContent = `Daftar seluruh zat yang telah berhasil kamu masukkan ke ${chestName}:`;
+
+      if (items.length === 0) {
+        grid.innerHTML = `
+          <div class="chest-empty-state">
+            <span class="empty-icon">📦</span>
+            <h4>Wadah ini masih kosong!</h4>
+            <p>Sintesis zat di meja laboratorium dan seret kartu ke sini untuk mengisinya.</p>
+          </div>
+        `;
+      } else {
+        items.forEach((item) => {
+          const cardEl = document.createElement('div');
+          cardEl.className = 'chest-item-card';
+          const svgIcon = SVG_ICONS[item.id] || SVG_ICONS.H;
+
+          cardEl.innerHTML = `
+            <div class="card-illustration-box">
+              ${svgIcon}
+            </div>
+            <div class="chest-item-formula">${item.formula}</div>
+            <div class="chest-item-name">${item.name}</div>
+            <div class="chest-item-meta">
+              <span class="card-state-pill">${item.state || 'Zat'}</span>
+              <span class="card-points-badge">+${item.pts} Pts</span>
+            </div>
+            <p style="font-size: 0.72rem; color: #64748b; margin-top: 4px; line-height: 1.3;">
+              ${item.trivia || ''}
+            </p>
+          `;
+          grid.appendChild(cardEl);
+        });
+      }
+
+      modal.classList.add('active');
     }
 
     // --- EVENT LISTENERS ---
@@ -2038,12 +2213,25 @@
           if (cardData) this.handleClassification(cardData, targetType, tube);
         });
 
-        tube.addEventListener('click', () => {
+        tube.addEventListener('click', (e) => {
+          if (e.target.closest('.btn-inspect-chest')) {
+            return;
+          }
           if (this.selectedHandCard) {
             this.handleClassification(this.selectedHandCard, targetType, tube);
             this.selectedHandCard = null;
             this.renderHandUI();
+          } else {
+            this.openChestModal(targetType);
           }
+        });
+      });
+
+      document.querySelectorAll('.btn-inspect-chest').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const chestType = btn.dataset.chestType;
+          if (chestType) this.openChestModal(chestType);
         });
       });
 
@@ -2160,8 +2348,50 @@
 
       if (this.dom.btnLeaderboard) {
         this.dom.btnLeaderboard.addEventListener('click', () => {
-          this.renderLeaderboard();
-          document.getElementById('modal-leaderboard').classList.add('active');
+          this.openLeaderboardModal();
+        });
+      }
+
+      if (this.dom.btnRefreshScores) {
+        this.dom.btnRefreshScores.addEventListener('click', () => {
+          this.fetchLeaderboardData(true);
+        });
+      }
+
+      if (this.dom.btnToggleCloudConfig) {
+        this.dom.btnToggleCloudConfig.addEventListener('click', () => {
+          const panel = this.dom.cloudConfigPanel;
+          const arrow = this.dom.cloudToggleArrow;
+          if (!panel) return;
+          const isHidden = panel.style.display === 'none' || !panel.style.display;
+          panel.style.display = isHidden ? 'block' : 'none';
+          if (arrow) arrow.textContent = isHidden ? '▲' : '▼';
+        });
+      }
+
+      if (this.dom.btnSaveCloudUrl) {
+        this.dom.btnSaveCloudUrl.addEventListener('click', () => {
+          const url = (this.dom.inputCloudUrl ? this.dom.inputCloudUrl.value : '').trim();
+          if (!url) {
+            this.showToast('Masukkan URL Web App Google Apps Script.', 'error');
+            return;
+          }
+          if (!url.startsWith('http://') && !url.startsWith('https://')) {
+            this.showToast('Format URL tidak valid. Harus diawali https://', 'error');
+            return;
+          }
+          this.setCloudUrl(url);
+          this.showToast('URL Google Sheets disimpan! Menguji koneksi...', 'info');
+          this.fetchLeaderboardData(true);
+        });
+      }
+
+      if (this.dom.btnResetCloudUrl) {
+        this.dom.btnResetCloudUrl.addEventListener('click', () => {
+          this.setCloudUrl('');
+          if (this.dom.inputCloudUrl) this.dom.inputCloudUrl.value = '';
+          this.showToast('URL Cloud dinonaktifkan. Mode Lokal aktif.', 'info');
+          this.fetchLeaderboardData(false);
         });
       }
 
@@ -2314,13 +2544,47 @@
       }
     }
 
+    getCloudUrl() {
+      return (localStorage.getItem('elementalcrafting_cloud_url') || '').trim();
+    }
+
+    setCloudUrl(url) {
+      if (url) {
+        localStorage.setItem('elementalcrafting_cloud_url', url.trim());
+      } else {
+        localStorage.removeItem('elementalcrafting_cloud_url');
+      }
+    }
+
+    updateCloudStatusUI(status, text) {
+      const badge = this.dom.cloudStatusBadge;
+      const textElem = this.dom.cloudStatusText;
+      if (!badge || !textElem) return;
+
+      badge.classList.remove('online', 'offline', 'loading');
+      badge.classList.add(status);
+      textElem.textContent = text;
+    }
+
+    openLeaderboardModal() {
+      if (this.dom.lbCurrentScore) this.dom.lbCurrentScore.textContent = this.score;
+      if (this.dom.lbCurrentLevel) this.dom.lbCurrentLevel.textContent = this.level;
+      if (this.dom.inputCloudUrl) this.dom.inputCloudUrl.value = this.getCloudUrl();
+
+      const modal = this.dom.modalLeaderboard || document.getElementById('modal-leaderboard');
+      if (modal) modal.classList.add('active');
+
+      this.fetchLeaderboardData();
+    }
+
     getStoredScores() {
       const data = localStorage.getItem('elementalcrafting_leaderboard') || localStorage.getItem('zatcraft_leaderboard');
       if (data) {
         try {
-          return JSON.parse(data);
+          const parsed = JSON.parse(data);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
         } catch (e) {
-          return [];
+          // fallback ke bawaan
         }
       }
       return [
@@ -2330,44 +2594,168 @@
       ];
     }
 
-    saveScore(name) {
-      const scores = this.getStoredScores();
-      scores.push({
+    async fetchLeaderboardData(isManualRefresh = false) {
+      const cloudUrl = this.getCloudUrl();
+      const refreshBtn = this.dom.btnRefreshScores;
+
+      if (refreshBtn) refreshBtn.classList.add('spin');
+
+      if (!cloudUrl) {
+        this.updateCloudStatusUI('offline', 'Mode Lokal (Offline)');
+        this.renderLeaderboard(this.getStoredScores());
+        if (refreshBtn) refreshBtn.classList.remove('spin');
+        if (isManualRefresh) {
+          this.showToast('Data lokal diperbarui. Hubungkan URL Google Sheets untuk mode online!', 'info');
+        }
+        return;
+      }
+
+      this.updateCloudStatusUI('loading', 'Menghubungkan ke Sheets...');
+
+      // Render cache lokal dulu agar tabel langsung terisi tanpa layar kosong
+      const cached = this.getStoredScores();
+      if (cached && cached.length) {
+        this.renderLeaderboard(cached);
+      }
+
+      try {
+        const fetchUrl = `${cloudUrl}${cloudUrl.includes('?') ? '&' : '?'}action=get&limit=15&_t=${Date.now()}`;
+        const res = await fetch(fetchUrl, {
+          method: 'GET',
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
+        const result = await res.json();
+
+        if (result && result.status === 'success' && Array.isArray(result.data)) {
+          const list = result.data.map(item => ({
+            name: item.name || 'Siswa Anonim',
+            score: parseInt(item.score, 10) || 0,
+            level: parseInt(item.level, 10) || 1,
+            date: item.date || ''
+          }));
+
+          // Simpan ke cache lokal
+          localStorage.setItem('elementalcrafting_leaderboard', JSON.stringify(list));
+          this.updateCloudStatusUI('online', 'Cloud Google Sheets Aktif');
+          this.renderLeaderboard(list);
+
+          if (isManualRefresh) {
+            this.showToast('✅ Papan peringkat berhasil disinkronkan dari Google Sheets!', 'success');
+          }
+        } else {
+          throw new Error(result.message || 'Format respon tidak valid');
+        }
+      } catch (err) {
+        console.warn('Gagal mengambil data dari Google Sheets:', err);
+        this.updateCloudStatusUI('offline', 'Gagal Sinkron (Mode Offline)');
+        this.renderLeaderboard(this.getStoredScores());
+        if (isManualRefresh) {
+          this.showToast('⚠️ Gagal terhubung ke Google Sheets. Periksa URL Anda.', 'error');
+        }
+      } finally {
+        if (refreshBtn) refreshBtn.classList.remove('spin');
+      }
+    }
+
+    async saveScore(name) {
+      const entry = {
         name: name,
         score: this.score,
         level: this.level,
+        mode: this.currentMode,
         date: new Date().toLocaleDateString('id-ID'),
-      });
+      };
 
-      scores.sort((a, b) => b.score - a.score);
-      const top10 = scores.slice(0, 10);
-      localStorage.setItem('elementalcrafting_leaderboard', JSON.stringify(top10));
-      this.renderLeaderboard();
-      this.showToast(`Skor untuk ${name} berhasil disimpan! 🏆`, 'success');
+      // 1. Simpan dan render secara instan ke LocalStorage (Offline-first)
+      const localScores = this.getStoredScores();
+      localScores.push(entry);
+      localScores.sort((a, b) => b.score - a.score);
+      const topScores = localScores.slice(0, 15);
+      localStorage.setItem('elementalcrafting_leaderboard', JSON.stringify(topScores));
+      this.renderLeaderboard(topScores);
+
+      const cloudUrl = this.getCloudUrl();
+
+      if (!cloudUrl) {
+        this.showToast(`🏆 Skor ${name} (${this.score} poin) berhasil disimpan secara lokal!`, 'success');
+        return;
+      }
+
+      // 2. Jika Cloud URL terpasang, kirim ke Google Apps Script Web App
+      const submitBtn = this.dom.btnSubmitScore;
+      const iconSpan = this.dom.submitScoreIcon;
+      const textSpan = this.dom.submitScoreText;
+
+      if (submitBtn) submitBtn.disabled = true;
+      if (iconSpan) iconSpan.textContent = '⏳';
+      if (textSpan) textSpan.textContent = 'Menyinkronkan...';
+
+      try {
+        await fetch(cloudUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify(entry)
+        });
+
+        this.showToast(`☁️ Skor ${name} (${this.score} poin) berhasil dicatat ke Google Sheets!`, 'success');
+
+        // Tunggu sejenak agar Google Apps Script selesai menulis dan mengurutkan baris, lalu refresh
+        setTimeout(() => {
+          this.fetchLeaderboardData();
+        }, 1200);
+      } catch (err) {
+        console.warn('Gagal mengirim skor ke Cloud:', err);
+        this.showToast(`Skor tersimpan di peramban lokal (Google Sheets tidak merespons)`, 'info');
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+        if (iconSpan) iconSpan.textContent = '🚀';
+        if (textSpan) textSpan.textContent = 'Simpan Rekor';
+      }
     }
 
-    renderLeaderboard() {
+    renderLeaderboard(scores) {
       const tbody = this.dom.leaderboardTbody;
       if (!tbody) return;
       tbody.innerHTML = '';
 
-      const scores = this.getStoredScores();
-      scores.forEach((entry, idx) => {
+      const list = scores || this.getStoredScores();
+
+      if (!list || list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="lb-empty-cell">Belum ada rekor tersimpan. Jadilah ilmuwan pertama! 🏆</td></tr>';
+        return;
+      }
+
+      list.forEach((entry, idx) => {
         const row = document.createElement('tr');
         let medal = `#${idx + 1}`;
-        if (idx === 0) medal = '🥇 #1';
-        if (idx === 1) medal = '🥈 #2';
-        if (idx === 2) medal = '🥉 #3';
+        let rankClass = '';
+        if (idx === 0) { medal = '🥇 #1'; rankClass = 'rank-1'; }
+        else if (idx === 1) { medal = '🥈 #2'; rankClass = 'rank-2'; }
+        else if (idx === 2) { medal = '🥉 #3'; rankClass = 'rank-3'; }
+
+        if (rankClass) row.className = rankClass;
 
         row.innerHTML = `
           <td><strong>${medal}</strong></td>
-          <td>${entry.name}</td>
-          <td><strong style="color: #d97706;">${entry.score}</strong></td>
-          <td>Lv. ${entry.level}</td>
-          <td><small style="color: #94a3b8;">${entry.date}</small></td>
+          <td><strong style="color: #0f172a;">${this.escapeHtml(entry.name)}</strong></td>
+          <td style="text-align: right;"><strong style="color: #d97706; font-size: 0.95rem;">${entry.score}</strong></td>
+          <td style="text-align: center;"><span style="background: #e2e8f0; color: #334155; font-size: 0.72rem; padding: 2px 6px; border-radius: 6px; font-weight: 700;">Lv. ${entry.level}</span></td>
+          <td style="text-align: right;"><small style="color: #64748b;">${entry.date || '-'}</small></td>
         `;
         tbody.appendChild(row);
       });
+    }
+
+    escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
     }
 
     showToast(message, type = 'info') {
@@ -2393,5 +2781,18 @@
   window.addEventListener('DOMContentLoaded', () => {
     window.elementalCrafting = new ElementalCraftingApp();
     window.zatCraft = window.elementalCrafting;
+
+    // Helper URL Hash for direct modal testing or shortcuts
+    if (window.location.hash.includes('leaderboard')) {
+      setTimeout(() => {
+        window.elementalCrafting.openLeaderboardModal();
+        if (window.location.hash.includes('cloud')) {
+          const panel = document.getElementById('cloud-config-panel');
+          const arrow = document.getElementById('cloud-toggle-arrow');
+          if (panel) panel.style.display = 'block';
+          if (arrow) arrow.textContent = '▲';
+        }
+      }, 200);
+    }
   });
 })();
