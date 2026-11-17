@@ -348,6 +348,43 @@
       <rect x="26" y="47" width="3" height="3" fill="#94a3b8"/>
       <rect x="33" y="48" width="3.5" height="3" fill="#64748b"/>
     </svg>`,
+
+    EKSTRAK_KOPI: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 16H46L42 52C42 54 40 56 38 56H26C24 56 22 54 22 52L18 16Z" fill="#fffbeb" stroke="#78350f" stroke-width="2"/>
+      <path d="M20 26H44L42 50C42 52 40 54 38 54H26C24 54 22 52 22 50L20 26Z" fill="#78350f" opacity="0.88"/>
+      <circle cx="32" cy="38" r="3.5" fill="#d97706" opacity="0.8"/>
+    </svg>`,
+
+    ENDAPAN_GULA_ALKOHOL: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 16H46L42 52C42 54 40 56 38 56H26C24 56 22 54 22 52L18 16Z" fill="#f8fafc" stroke="#d97706" stroke-width="2"/>
+      <path d="M20 26H44L42 46H22L20 26Z" fill="#38bdf8" opacity="0.45"/>
+      <path d="M22 46H42L42 50C42 52 40 54 38 54H26C24 54 22 52 22 50L22 46Z" fill="#fef08a"/>
+      <circle cx="26" cy="48" r="1.5" fill="#ca8a04"/>
+      <circle cx="32" cy="47" r="1.5" fill="#ca8a04"/>
+      <circle cx="37" cy="48" r="1.5" fill="#ca8a04"/>
+    </svg>`,
+
+    PASIR_ALKOHOL: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 16H46L42 52C42 54 40 56 38 56H26C24 56 22 54 22 52L18 16Z" fill="#f8fafc" stroke="#d97706" stroke-width="2"/>
+      <path d="M20 26H44L42 46H22L20 26Z" fill="#38bdf8" opacity="0.45"/>
+      <path d="M22 46H42L42 50C42 52 40 54 38 54H26C24 54 22 52 22 50L22 46Z" fill="#b45309"/>
+      <rect x="25" y="47" width="4" height="2.5" fill="#78350f"/>
+      <rect x="33" y="48" width="5" height="2.5" fill="#78350f"/>
+    </svg>`,
+
+    SUSU_KOAGULASI: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 16H46L42 52C42 54 40 56 38 56H26C24 56 22 54 22 52L18 16Z" fill="#fdf4ff" stroke="#7c3aed" stroke-width="2"/>
+      <path d="M20 26H44L42 50C42 52 40 54 38 54H26C24 54 22 52 22 50L20 26Z" fill="#f1f5f9" opacity="0.7"/>
+      <ellipse cx="28" cy="44" rx="5" ry="3" fill="#ffffff" stroke="#c084fc" stroke-width="1.5"/>
+      <ellipse cx="36" cy="46" rx="4" ry="2.5" fill="#ffffff" stroke="#c084fc" stroke-width="1.5"/>
+    </svg>`,
+
+    AMPAS_KELAPA_ALKOHOL: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 16H46L42 52C42 54 40 56 38 56H26C24 56 22 54 22 52L18 16Z" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+      <path d="M20 26H44L42 50C42 52 40 54 38 54H26C24 54 22 52 22 50L20 26Z" fill="#38bdf8" opacity="0.45"/>
+      <rect x="23" y="27" width="18" height="4" rx="2" fill="#d97706" opacity="0.9"/>
+      <circle cx="30" cy="29" r="1.5" fill="#fef08a"/>
+    </svg>`,
   };
 
   // ==========================================================================
@@ -802,6 +839,56 @@
       state: 'Mengendap',
       pts: 35,
       trivia: 'Garam dapur yang sangat mudah larut dalam air justru tidak larut dalam alkohol dan mengendap di dasar tabung.',
+    },
+    EKSTRAK_KOPI: {
+      id: 'EKSTRAK_KOPI',
+      name: 'Ekstrak Kopi',
+      formula: 'Alkohol + Kopi',
+      category: 'homogen',
+      kind: 'hasil_campuran',
+      state: 'Cair Pekat',
+      pts: 35,
+      trivia: 'Pelarut alkohol organik mampu melarutkan senyawa kafein dan minyak aroma kopi menjadi larutan ekstrak jernih tanpa ampas.',
+    },
+    ENDAPAN_GULA_ALKOHOL: {
+      id: 'ENDAPAN_GULA_ALKOHOL',
+      name: 'Endapan Gula',
+      formula: 'Alkohol + Gula',
+      category: 'heterogen',
+      kind: 'hasil_campuran',
+      state: 'Mengendap',
+      pts: 35,
+      trivia: 'Kristal gula sukrosa sukar larut dalam pelarut alkohol sehingga butiran gulanya mengendap di dasar wadah.',
+    },
+    PASIR_ALKOHOL: {
+      id: 'PASIR_ALKOHOL',
+      name: 'Endapan Pasir',
+      formula: 'Alkohol + Pasir',
+      category: 'heterogen',
+      kind: 'hasil_campuran',
+      state: 'Cair Terpisah',
+      pts: 30,
+      trivia: 'Butiran pasir batuan sama sekali tidak larut dalam alkohol dan langsung mengendap cepat ke dasar tabung.',
+    },
+    SUSU_KOAGULASI: {
+      id: 'SUSU_KOAGULASI',
+      name: 'Gumpalan Susu',
+      formula: 'Alkohol + Susu',
+      category: 'koloid',
+      kind: 'hasil_campuran',
+      state: 'Gumpalan Koloid',
+      pts: 35,
+      trivia: 'Alkohol mendenaturasi ikatan protein kasein susu sehingga menggumpal (koagulasi) membentuk sistem koloid kental.',
+    },
+    AMPAS_KELAPA_ALKOHOL: {
+      id: 'AMPAS_KELAPA_ALKOHOL',
+      name: 'Ampas Kelapa',
+      formula: 'Alkohol + Kelapa',
+      category: 'heterogen',
+      kind: 'hasil_campuran',
+      state: 'Padat Terpisah',
+      pts: 30,
+      trivia: 'Serat ampas kelapa parut tidak larut dalam alkohol dan mengapung terpisah di permukaan cairan alkohol.',
     },
   };
 
@@ -1403,6 +1490,7 @@
         missionText: document.getElementById('mission-text'),
         deckCounter: document.getElementById('deck-counter'),
         btnDraw: document.getElementById('btn-draw'),
+        btnReshuffle: document.getElementById('btn-reshuffle'),
         handCount: document.getElementById('hand-count'),
         playerHand: document.getElementById('player-hand'),
         toastContainer: document.getElementById('toast-container'),
@@ -1449,12 +1537,9 @@
       };
     }
 
-    initDeckForMode(mode) {
-      const state = this.modeState[mode];
-      let rawPool = [];
-
+    getDeckPool(mode) {
       if (mode === 'unsur_senyawa') {
-        rawPool = [
+        return [
           'H', 'H', 'H', 'H', 'H', 'H',
           'O', 'O', 'O', 'O',
           'C', 'C', 'C',
@@ -1465,7 +1550,7 @@
           'Au', 'Au'
         ];
       } else {
-        rawPool = [
+        return [
           'AIR', 'AIR', 'AIR', 'AIR', 'AIR', 'AIR', 'AIR',
           'ALKOHOL', 'ALKOHOL', 'ALKOHOL', 'ALKOHOL', 'ALKOHOL',
           'GARAM', 'GARAM', 'GULA', 'GULA', 'TEH', 'TEH',
@@ -1473,11 +1558,51 @@
           'KOPI_BUBUK', 'KOPI_BUBUK', 'PASIR', 'PASIR', 'MINYAK', 'MINYAK'
         ];
       }
+    }
 
-      state.deck = this.shuffleArray([...rawPool]);
+    refillDeck(mode) {
+      const state = this.modeState[mode];
+      state.deck = this.shuffleArray([...this.getDeckPool(mode)]);
+    }
+
+    addCardToHand(state, cardId) {
+      const cardData = CARDS_DB[cardId];
+      if (!cardData) return null;
+      const instance = {
+        instanceId: 'card_' + Math.random().toString(36).substr(2, 9),
+        cardId: cardId,
+        ...cardData,
+      };
+      state.hand.push(instance);
+      return instance;
+    }
+
+    initDeckForMode(mode) {
+      const state = this.modeState[mode];
+      this.refillDeck(mode);
       state.hand = [];
-      for (let i = 0; i < 5; i++) {
-        this.drawCardForState(state, false);
+
+      if (mode === 'campuran') {
+        // Jamin tangan awal seimbang: 2 Pelarut (Air & Alkohol) + 3 Bahan Campuran Unik
+        const initialSolvents = ['AIR', 'ALKOHOL'];
+        initialSolvents.forEach((sid) => {
+          this.addCardToHand(state, sid);
+          const idx = state.deck.indexOf(sid);
+          if (idx !== -1) state.deck.splice(idx, 1);
+        });
+
+        const nonSolvents = ['GARAM', 'GULA', 'TEH', 'SUSU_BUBUK', 'KELAPA', 'SABUN', 'KOPI_BUBUK', 'PASIR', 'MINYAK'];
+        const shuffledNon = this.shuffleArray([...nonSolvents]);
+        for (let i = 0; i < 3; i++) {
+          const bid = shuffledNon[i];
+          this.addCardToHand(state, bid);
+          const idx = state.deck.indexOf(bid);
+          if (idx !== -1) state.deck.splice(idx, 1);
+        }
+      } else {
+        for (let i = 0; i < 5; i++) {
+          this.drawCardForState(state, false);
+        }
       }
     }
 
@@ -1496,21 +1621,76 @@
       }
 
       if (state.deck.length === 0) {
-        this.initDeckForMode(this.currentMode);
+        this.refillDeck(this.currentMode);
         this.showToast('Tumpukan bahan dasar dikocok ulang! 🎴', 'info');
       }
 
-      const cardId = state.deck.pop();
-      const cardData = CARDS_DB[cardId];
-      if (!cardData) return false;
+      let cardId = null;
 
-      const instance = {
-        instanceId: 'card_' + Math.random().toString(36).substr(2, 9),
-        cardId: cardId,
-        ...cardData,
-      };
+      // Logika cerdas keseimbangan tangan untuk Lab 2: Ragam Campuran
+      if (this.currentMode === 'campuran') {
+        const isPelarut = (id) => id === 'AIR' || id === 'ALKOHOL';
 
-      state.hand.push(instance);
+        // Hitung total pelarut dan bahan campuran yang sedang aktif di tangan maupun meja racik
+        const pelarutInHand = state.hand.filter((c) => isPelarut(c.id)).length;
+        const bahanInHand = state.hand.filter((c) => c.kind === 'bahan_dasar' && !isPelarut(c.id)).length;
+
+        const benchPelarut = state.benchSlots[0] && isPelarut(state.benchSlots[0].id) ? 1 : 0;
+        const benchBahan = state.benchSlots[1] && !isPelarut(state.benchSlots[1].id) ? 1 : 0;
+
+        const totalPelarut = pelarutInHand + benchPelarut;
+        const totalBahan = bahanInHand + benchBahan;
+
+        let neededType = null;
+
+        // 1. Prioritas Utama: JANGAN BIARKAN TANGAN HANYA BAHAN (Tanpa Pelarut)
+        if (totalPelarut === 0) {
+          neededType = 'pelarut';
+        }
+        // 2. Prioritas Utama: JANGAN BIARKAN TANGAN HANYA PELARUT (Tanpa Bahan Campuran)
+        else if (totalBahan === 0) {
+          neededType = 'bahan';
+        }
+        // 3. Menjaga Keseimbangan: Jika pelarut terlalu banyak (>= 3) dan bahan sedikit (<= 1)
+        else if (totalPelarut >= 3 && totalBahan <= 1) {
+          neededType = 'bahan';
+        }
+        // 4. Menjaga Keseimbangan: Jika bahan terlalu banyak (>= 4) dan pelarut sedikit (<= 1)
+        else if (totalBahan >= 4 && totalPelarut <= 1) {
+          neededType = 'pelarut';
+        }
+
+        if (neededType) {
+          const matchIdx = state.deck.findIndex((id) => {
+            return neededType === 'pelarut' ? isPelarut(id) : !isPelarut(id);
+          });
+
+          if (matchIdx !== -1) {
+            cardId = state.deck.splice(matchIdx, 1)[0];
+          } else {
+            // Jika kartu kategori tersebut kebetulan habis di sisa deck, isi ulang deck
+            this.refillDeck(this.currentMode);
+            const freshIdx = state.deck.findIndex((id) => {
+              return neededType === 'pelarut' ? isPelarut(id) : !isPelarut(id);
+            });
+            if (freshIdx !== -1) {
+              cardId = state.deck.splice(freshIdx, 1)[0];
+            }
+          }
+        }
+      }
+
+      // Ambil kartu normal dari tumpukan jika tidak ada kebutuhan spesifik / seimbang
+      if (!cardId) {
+        if (state.deck.length === 0) {
+          this.refillDeck(this.currentMode);
+        }
+        cardId = state.deck.pop();
+      }
+
+      const instance = this.addCardToHand(state, cardId);
+      if (!instance) return false;
+
       if (playSfx) this.sound.sfxDraw();
       return true;
     }
@@ -1965,6 +2145,36 @@
         this.checkCraftingClues();
         this.showToast('Bahan di meja dikembalikan ke tangan.', 'info');
       }
+    }
+
+    reshuffleHand() {
+      const state = this.modeState[this.currentMode];
+      if (!state) return;
+
+      // Animasi putar ikon tombol reshuffle
+      if (this.dom.btnReshuffle) {
+        const icon = this.dom.btnReshuffle.querySelector('.btn-reshuffle-icon');
+        if (icon) {
+          icon.style.transform = 'rotate(360deg)';
+          setTimeout(() => { icon.style.transform = ''; }, 350);
+        }
+      }
+
+      // Kosongkan kartu di meja racik jika ada
+      for (let i = 0; i < state.benchSlots.length; i++) {
+        state.benchSlots[i] = null;
+      }
+
+      // Acak ulang dek dan berikan 5 kartu baru yang segar & seimbang
+      this.initDeckForMode(this.currentMode);
+
+      this.selectedHandCard = null;
+      this.sound.sfxDraw();
+      this.renderBenchUI();
+      this.renderHandUI();
+      this.checkCraftingClues();
+
+      this.showToast('🔄 Kartu di tangan berhasil dikocok ulang!', 'info');
     }
 
     renderBenchUI() {
@@ -2480,6 +2690,12 @@
         });
       }
 
+      if (this.dom.btnReshuffle) {
+        this.dom.btnReshuffle.addEventListener('click', () => {
+          this.reshuffleHand();
+        });
+      }
+
       if (this.dom.btnCraftSenyawa) {
         this.dom.btnCraftSenyawa.addEventListener('click', () => this.executeSynthesis());
       }
@@ -2901,22 +3117,6 @@
       setTimeout(() => {
         window.elementalCrafting.openLeaderboardModal();
       }, 200);
-    }
-
-    if (window.location.hash.includes('test_deck')) {
-      setTimeout(() => {
-        const app = window.elementalCrafting;
-        app.switchMode('campuran');
-        const st = app.modeState.campuran;
-        st.hand = [
-          { instanceId: 'card_alkohol', cardId: 'ALKOHOL', ...CARDS_DB.ALKOHOL },
-          { instanceId: 'card_air', cardId: 'AIR', ...CARDS_DB.AIR },
-          { instanceId: 'card_garam', cardId: 'GARAM', ...CARDS_DB.GARAM },
-          { instanceId: 'card_hs', cardId: 'HAND_SANITIZER', ...CARDS_DB.HAND_SANITIZER },
-          { instanceId: 'card_kopi', cardId: 'KOPI_BUBUK', ...CARDS_DB.KOPI_BUBUK }
-        ];
-        app.renderHandUI();
-      }, 300);
     }
   });
 })();

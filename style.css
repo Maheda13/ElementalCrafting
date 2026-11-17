@@ -1378,6 +1378,12 @@ body.light-theme {
   color: #0f172a;
 }
 
+.deck-action-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .btn-draw {
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: #fff;
@@ -1404,6 +1410,50 @@ body.light-theme {
   opacity: 0.5;
   cursor: not-allowed;
   transform: none;
+}
+
+.btn-reshuffle {
+  background: #ffffff;
+  color: #334155;
+  border: 1.5px solid #cbd5e1;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 6.5px 14px;
+  border-radius: 9px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 5px rgba(15, 23, 42, 0.05);
+  transition: all var(--transition-fast);
+}
+
+.btn-reshuffle:hover {
+  background: #f8fafc;
+  color: #2563eb;
+  border-color: #93c5fd;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
+}
+
+.btn-reshuffle:hover .btn-reshuffle-icon {
+  transform: rotate(180deg);
+}
+
+.btn-reshuffle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-reshuffle-icon svg {
+  display: block;
+}
+
+.btn-reshuffle:active {
+  transform: translateY(0);
 }
 
 .hand-capacity .capacity-pill {
