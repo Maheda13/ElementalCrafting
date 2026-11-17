@@ -896,6 +896,12 @@ body.light-theme {
   line-height: 1.2;
 }
 
+.chest-item-formula.chest-item-campuran {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
 .chest-item-name {
   font-size: 0.82rem;
   font-weight: 700;
@@ -1211,6 +1217,11 @@ body.light-theme {
 /* Card Meta Content */
 .card-body {
   text-align: center;
+  min-height: 38px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .card-formula {
@@ -1221,6 +1232,20 @@ body.light-theme {
   line-height: 1.1;
 }
 
+.card-formula.card-formula-bahan,
+.card-formula.card-formula-campuran {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  padding: 0 2px;
+}
+
 .card-name {
   font-size: 0.72rem;
   font-weight: 700;
@@ -1229,6 +1254,41 @@ body.light-theme {
   overflow: hidden;
   text-overflow: ellipsis;
   margin-top: 1px;
+}
+
+.card-role-tag {
+  font-size: 0.58rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 999px;
+  margin-top: 2px;
+  letter-spacing: 0.2px;
+  display: inline-block;
+  line-height: 1.2;
+}
+
+.card-role-tag.role-pelarut {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.card-role-tag.role-bahan {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.card-composition {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #64748b;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .card-bottom {
@@ -1739,77 +1799,20 @@ body.light-theme {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  flex-wrap: wrap;
+  gap: 12px;
   background: var(--bg-subtle);
   border: 1px solid var(--border-light);
   border-radius: 12px;
-  padding: 8px 12px;
-  margin-bottom: 12px;
-  font-size: 0.82rem;
-}
-
-.cloud-status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 700;
-  font-size: 0.75rem;
-  padding: 4px 10px;
-  border-radius: 999px;
-  transition: all 0.2s ease;
-}
-
-.cloud-status-badge.online {
-  background: #ecfdf5;
-  color: #047857;
-  border: 1px solid #a7f3d0;
-}
-
-.cloud-status-badge.online .status-dot {
-  background: #10b981;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
-  animation: pulseGreen 2s infinite;
-}
-
-.cloud-status-badge.offline {
-  background: #f1f5f9;
-  color: #64748b;
-  border: 1px solid #e2e8f0;
-}
-
-.cloud-status-badge.offline .status-dot {
-  background: #94a3b8;
-}
-
-.cloud-status-badge.loading {
-  background: #fefce8;
-  color: #b45309;
-  border: 1px solid #fef08a;
-}
-
-.cloud-status-badge.loading .status-dot {
-  background: #eab308;
-  animation: pulseGreen 1s infinite;
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  display: inline-block;
-  flex-shrink: 0;
-}
-
-@keyframes pulseGreen {
-  0% { transform: scale(0.95); opacity: 0.8; }
-  50% { transform: scale(1.15); opacity: 1; }
-  100% { transform: scale(0.95); opacity: 0.8; }
+  padding: 10px 14px;
+  margin-bottom: 14px;
 }
 
 .lb-player-stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   color: var(--text-muted);
-  font-size: 0.8rem;
+  font-size: 0.84rem;
 }
 
 .lb-player-stat strong {
@@ -1826,13 +1829,13 @@ body.light-theme {
   background: #ffffff;
   border: 1px solid var(--border-light);
   border-radius: 8px;
-  padding: 4px 10px;
-  font-size: 0.75rem;
+  padding: 6px 12px;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--text-muted);
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -1955,115 +1958,6 @@ body.light-theme {
   padding: 24px 12px !important;
   color: var(--text-muted);
   font-style: italic;
-}
-
-/* Cloud Config Drawer */
-.cloud-config-drawer {
-  margin-top: 12px;
-  border: 1px dashed var(--border-light);
-  border-radius: 12px;
-  background: #f8fafc;
-  padding: 4px;
-  transition: all 0.2s ease;
-}
-
-.btn-toggle-cloud {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  background: transparent;
-  border: none;
-  padding: 8px 12px;
-  font-family: inherit;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.15s ease;
-}
-
-.btn-toggle-cloud:hover {
-  color: #2563eb;
-  background: rgba(37, 99, 235, 0.05);
-}
-
-.cloud-config-content {
-  padding: 10px 12px 12px;
-  border-top: 1px solid var(--border-light);
-}
-
-.cloud-help-text {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-bottom: 8px;
-  line-height: 1.4;
-}
-
-.cloud-input-group {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 8px;
-}
-
-.cloud-input-group input {
-  flex: 1;
-  font-family: monospace;
-  font-size: 0.75rem;
-  padding: 7px 10px;
-  border-radius: 7px;
-  border: 1px solid var(--border-light);
-  background: #ffffff;
-  color: var(--text-main);
-}
-
-.cloud-input-group input:focus {
-  outline: none;
-  border-color: #2563eb;
-}
-
-.cloud-input-group .btn-secondary {
-  padding: 7px 12px;
-  font-size: 0.76rem;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.cloud-input-group .btn-text {
-  background: #ffffff;
-  border: 1px solid var(--border-light);
-  border-radius: 7px;
-  color: var(--text-muted);
-  padding: 7px 12px;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 0.74rem;
-  font-weight: 600;
-  transition: all 0.15s ease;
-}
-
-.cloud-input-group .btn-text:hover {
-  background: #fef2f2;
-  color: #ef4444;
-  border-color: #fca5a5;
-}
-
-.cloud-tips-box {
-  font-size: 0.72rem;
-  color: #475569;
-  background: #edf2f7;
-  padding: 6px 10px;
-  border-radius: 6px;
-  line-height: 1.35;
-}
-
-.cloud-tips-box code {
-  background: #e2e8f0;
-  padding: 1px 4px;
-  border-radius: 4px;
-  font-family: monospace;
 }
 
 /* Level Up Box */

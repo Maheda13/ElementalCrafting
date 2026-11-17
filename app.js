@@ -212,6 +212,14 @@
       <circle cx="26" cy="44" r="2.5" fill="#ffffff" opacity="0.8"/>
     </svg>`,
 
+    ALKOHOL: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="26" y="8" width="12" height="8" rx="2" fill="#0284c7"/>
+      <path d="M22 18H42L46 26V50C46 54 43 56 40 56H24C21 56 18 54 18 50V26L22 18Z" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+      <rect x="22" y="28" width="20" height="22" rx="3" fill="#38bdf8" opacity="0.85"/>
+      <path d="M32 34V44M27 39H37" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="25" cy="24" r="1.5" fill="#ffffff" opacity="0.8"/>
+    </svg>`,
+
     GARAM: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M16 36C16 46 48 46 48 36V32H16V36Z" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
       <ellipse cx="32" cy="32" rx="16" ry="6" fill="#e2e8f0" stroke="#64748b" stroke-width="2"/>
@@ -304,6 +312,41 @@
       <rect x="20" y="26" width="24" height="12" fill="#facc15" opacity="0.9"/>
       <path d="M20 38H44L42 50C42 52 40 54 38 54H26C24 54 22 52 22 50L20 38Z" fill="#38bdf8" opacity="0.75"/>
       <line x1="20" y1="38" x2="44" y2="38" stroke="#d97706" stroke-width="1.5"/>
+    </svg>`,
+
+    HAND_SANITIZER: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 16H46L42 52C42 54 40 56 38 56H26C24 56 22 54 22 52L18 16Z" fill="#f0f9ff" stroke="#0284c7" stroke-width="2"/>
+      <path d="M20 26H44L42 50C42 52 40 54 38 54H26C24 54 22 52 22 50L20 26Z" fill="#38bdf8" opacity="0.6"/>
+      <path d="M32 32V42M27 37H37" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="40" cy="30" r="2" fill="#bae6fd"/>
+    </svg>`,
+
+    EKSTRAK_TEH: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 16H46L42 52C42 54 40 56 38 56H26C24 56 22 54 22 52L18 16Z" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+      <path d="M20 26H44L42 50C42 52 40 54 38 54H26C24 54 22 52 22 50L20 26Z" fill="#22c55e" opacity="0.65"/>
+      <circle cx="30" cy="38" r="3" fill="#86efac" opacity="0.7"/>
+    </svg>`,
+
+    GEL_ANTISEPTIK: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 16H46L42 52C42 54 40 56 38 56H26C24 56 22 54 22 52L18 16Z" fill="#fdf4ff" stroke="#7c3aed" stroke-width="2"/>
+      <path d="M20 26H44L42 50C42 52 40 54 38 54H26C24 54 22 52 22 50L20 26Z" fill="#a855f7" opacity="0.5"/>
+      <circle cx="28" cy="34" r="4" fill="#e9d5ff" stroke="#7c3aed" stroke-width="1.5"/>
+      <circle cx="36" cy="40" r="3" fill="#e9d5ff" stroke="#7c3aed" stroke-width="1.5"/>
+    </svg>`,
+
+    MINYAK_ALKOHOL: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 16H46L42 52C42 54 40 56 38 56H26C24 56 22 54 22 52L18 16Z" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+      <rect x="20" y="26" width="24" height="12" fill="#fbbf24" opacity="0.85"/>
+      <path d="M20 38H44L42 50C42 52 40 54 38 54H26C24 54 22 52 22 50L20 38Z" fill="#38bdf8" opacity="0.5"/>
+      <line x1="20" y1="38" x2="44" y2="38" stroke="#b45309" stroke-width="1.5"/>
+    </svg>`,
+
+    ENDAPAN_GARAM_ALKOHOL: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 16H46L42 52C42 54 40 56 38 56H26C24 56 22 54 22 52L18 16Z" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+      <path d="M20 26H44L42 46H22L20 26Z" fill="#38bdf8" opacity="0.45"/>
+      <path d="M22 46H42L42 50C42 52 40 54 38 54H26C24 54 22 52 22 50L22 46Z" fill="#e2e8f0"/>
+      <rect x="26" y="47" width="3" height="3" fill="#94a3b8"/>
+      <rect x="33" y="48" width="3.5" height="3" fill="#64748b"/>
     </svg>`,
   };
 
@@ -510,18 +553,28 @@
     // --- LAB 2: BAHAN DASAR (DASAR DEK) ---
     AIR: {
       id: 'AIR',
-      name: 'Air Pelarut',
+      name: 'Air',
       formula: 'Air',
       category: 'bahan',
       kind: 'bahan_dasar',
       state: 'Cair',
       pts: 5,
-      trivia: 'Pelarut alami yang mampu melarutkan berbagai jenis zat di alam.',
+      trivia: 'Pelarut alami yang mampu melarutkan berbagai jenis zat polar di alam.',
+    },
+    ALKOHOL: {
+      id: 'ALKOHOL',
+      name: 'Alkohol 70%',
+      formula: 'Alkohol 70%',
+      category: 'bahan',
+      kind: 'bahan_dasar',
+      state: 'Cair',
+      pts: 8,
+      trivia: 'Pelarut organik antiseptik yang mudah menguap, melarutkan zat warna dan membunuh kuman mikroba.',
     },
     GARAM: {
       id: 'GARAM',
       name: 'Garam Dapur',
-      formula: 'Garam',
+      formula: 'Garam Dapur',
       category: 'bahan',
       kind: 'bahan_dasar',
       state: 'Padat Butir',
@@ -531,7 +584,7 @@
     GULA: {
       id: 'GULA',
       name: 'Gula Pasir',
-      formula: 'Gula',
+      formula: 'Gula Pasir',
       category: 'bahan',
       kind: 'bahan_dasar',
       state: 'Padat Kristal',
@@ -541,7 +594,7 @@
     SUSU_BUBUK: {
       id: 'SUSU_BUBUK',
       name: 'Bubuk Susu',
-      formula: 'Susu Bubuk',
+      formula: 'Bubuk Susu',
       category: 'bahan',
       kind: 'bahan_dasar',
       state: 'Serbuk Halus',
@@ -551,7 +604,7 @@
     KELAPA: {
       id: 'KELAPA',
       name: 'Kelapa Parut',
-      formula: 'Kelapa',
+      formula: 'Kelapa Parut',
       category: 'bahan',
       kind: 'bahan_dasar',
       state: 'Padat Lembap',
@@ -571,7 +624,7 @@
     PASIR: {
       id: 'PASIR',
       name: 'Pasir Tanah',
-      formula: 'Pasir',
+      formula: 'Pasir Tanah',
       category: 'bahan',
       kind: 'bahan_dasar',
       state: 'Padat Butiran',
@@ -581,7 +634,7 @@
     MINYAK: {
       id: 'MINYAK',
       name: 'Minyak Goreng',
-      formula: 'Minyak',
+      formula: 'Minyak Goreng',
       category: 'bahan',
       kind: 'bahan_dasar',
       state: 'Cair',
@@ -591,7 +644,7 @@
     TEH: {
       id: 'TEH',
       name: 'Daun Teh',
-      formula: 'Teh',
+      formula: 'Daun Teh',
       category: 'bahan',
       kind: 'bahan_dasar',
       state: 'Padat Daun',
@@ -601,7 +654,7 @@
     SABUN: {
       id: 'SABUN',
       name: 'Sabun Cair',
-      formula: 'Sabun',
+      formula: 'Sabun Cair',
       category: 'bahan',
       kind: 'bahan_dasar',
       state: 'Cair Kental',
@@ -622,7 +675,7 @@
     },
     AIR_GULA: {
       id: 'AIR_GULA',
-      name: 'Larutan Gula / Sirup',
+      name: 'Larutan Gula',
       formula: 'Air + Gula',
       category: 'homogen',
       kind: 'hasil_campuran',
@@ -662,7 +715,7 @@
     },
     AIR_SABUN: {
       id: 'AIR_SABUN',
-      name: 'Air Sabun (Busa)',
+      name: 'Air Sabun',
       formula: 'Air + Sabun',
       category: 'koloid',
       kind: 'hasil_campuran',
@@ -682,7 +735,7 @@
     },
     AIR_LUMPUR: {
       id: 'AIR_LUMPUR',
-      name: 'Air Lumpur / Keruh',
+      name: 'Air Lumpur',
       formula: 'Air + Pasir',
       category: 'heterogen',
       kind: 'hasil_campuran',
@@ -699,6 +752,56 @@
       state: 'Cair Terpisah',
       pts: 30,
       trivia: 'Dua cairan yang membentuk batas lapisan terpisah jelas dan tidak mau saling melarutkan.',
+    },
+    HAND_SANITIZER: {
+      id: 'HAND_SANITIZER',
+      name: 'Hand Sanitizer',
+      formula: 'Alkohol + Air',
+      category: 'homogen',
+      kind: 'hasil_campuran',
+      state: 'Cair Jernih',
+      pts: 35,
+      trivia: 'Alkohol dan air saling melarutkan sempurna (miscible) membentuk larutan antiseptik pembersih tangan higienis.',
+    },
+    EKSTRAK_TEH: {
+      id: 'EKSTRAK_TEH',
+      name: 'Ekstrak Teh',
+      formula: 'Alkohol + Teh',
+      category: 'homogen',
+      kind: 'hasil_campuran',
+      state: 'Cair Hijau Emas',
+      pts: 35,
+      trivia: 'Pelarut alkohol mampu melarutkan pigmen klorofil dan zat antioksidan polifenol dari daun teh lebih pekat daripada air.',
+    },
+    GEL_ANTISEPTIK: {
+      id: 'GEL_ANTISEPTIK',
+      name: 'Gel Antiseptik',
+      formula: 'Alkohol + Sabun',
+      category: 'koloid',
+      kind: 'hasil_campuran',
+      state: 'Gel Koloid',
+      pts: 35,
+      trivia: 'Campuran alkohol dan sabun cair membentuk sistem koloid kental yang efektif membersihkan kotoran dan membunuh kuman.',
+    },
+    MINYAK_ALKOHOL: {
+      id: 'MINYAK_ALKOHOL',
+      name: 'Minyak & Alkohol',
+      formula: 'Alkohol + Minyak',
+      category: 'heterogen',
+      kind: 'hasil_campuran',
+      state: 'Cair Terpisah',
+      pts: 30,
+      trivia: 'Minyak non-polar tidak dapat larut sempurna dalam alkohol 70% sehingga terpisah menjadi dua lapisan berbeda.',
+    },
+    ENDAPAN_GARAM_ALKOHOL: {
+      id: 'ENDAPAN_GARAM_ALKOHOL',
+      name: 'Endapan Garam',
+      formula: 'Alkohol + Garam',
+      category: 'heterogen',
+      kind: 'hasil_campuran',
+      state: 'Mengendap',
+      pts: 35,
+      trivia: 'Garam dapur yang sangat mudah larut dalam air justru tidak larut dalam alkohol dan mengendap di dasar tabung.',
     },
   };
 
@@ -954,6 +1057,51 @@
       desc: 'Dua cairan yang tidak saling melarutkan dan membentuk 2 lapisan terpisah.',
       unlocked: false,
     },
+    {
+      id: 'rec_hand_sanitizer',
+      ingredients: ['AIR', 'ALKOHOL'],
+      result: 'HAND_SANITIZER',
+      pts: 35,
+      title: 'Hand Sanitizer (Alkohol + Air)',
+      desc: 'Alkohol dan air saling melarutkan sempurna (miscible) membentuk cairan antiseptik pembersih tangan.',
+      unlocked: false,
+    },
+    {
+      id: 'rec_ekstrak_teh',
+      ingredients: ['ALKOHOL', 'TEH'],
+      result: 'EKSTRAK_TEH',
+      pts: 35,
+      title: 'Ekstrak Herbal Teh (Alkohol + Teh)',
+      desc: 'Alkohol melarutkan klorofil dan zat antioksidan polifenol daun teh menghasilkan larutan jernih kehijauan.',
+      unlocked: false,
+    },
+    {
+      id: 'rec_gel_antiseptik',
+      ingredients: ['ALKOHOL', 'SABUN'],
+      result: 'GEL_ANTISEPTIK',
+      pts: 35,
+      title: 'Gel Sabun Antiseptik (Alkohol + Sabun)',
+      desc: 'Alkohol dan sabun cair membentuk sistem koloid kental yang efektif membersihkan kotoran dan kuman.',
+      unlocked: false,
+    },
+    {
+      id: 'rec_minyak_alkohol',
+      ingredients: ['ALKOHOL', 'MINYAK'],
+      result: 'MINYAK_ALKOHOL',
+      pts: 30,
+      title: 'Minyak & Alkohol (Alkohol + Minyak)',
+      desc: 'Minyak non-polar tidak dapat larut sempurna dalam alkohol 70% dan terpisah menjadi 2 fasa cairan.',
+      unlocked: false,
+    },
+    {
+      id: 'rec_garam_alkohol',
+      ingredients: ['ALKOHOL', 'GARAM'],
+      result: 'ENDAPAN_GARAM_ALKOHOL',
+      pts: 35,
+      title: 'Endapan Garam Alkohol (Alkohol + Garam)',
+      desc: 'Garam dapur tidak larut dalam pelarut organik alkohol dan mengendap di dasar tabung.',
+      unlocked: false,
+    },
   ];
 
   // ==========================================================================
@@ -1112,7 +1260,8 @@
   // ==========================================================================
   // 6. ENGINE UTAMA APLIKASI ELEMENTALCRAFTING V2.4
   // ==========================================================================
-  const DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbzIGZ_PeVHOADYayezK0nrFzma_7FWuViKyK3yxUDln45esVsGz-8RTKaMlfOiibeb0/exec';
+  // Konfigurasi Endpoint Google Apps Script (Hanya diatur di Backend)
+  const GAS_ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbzIGZ_PeVHOADYayezK0nrFzma_7FWuViKyK3yxUDln45esVsGz-8RTKaMlfOiibeb0/exec';
 
   class ElementalCraftingApp {
     constructor() {
@@ -1155,7 +1304,7 @@
 
       this.initDeckForMode('unsur_senyawa');
       this.initDeckForMode('campuran');
-      if (window.location.hash === '#campuran') {
+      if (window.location.hash && window.location.hash.includes('campuran')) {
         this.switchMode('campuran');
       } else {
         this.switchMode('unsur_senyawa');
@@ -1202,28 +1351,28 @@
         campuran: [
           {
             title: 'Misi 1: Racik 3 Larutan Homogen Berbeda',
-            desc: 'Campurkan Air dengan 3 bahan berbeda di Meja Racik untuk membuat 3 larutan homogen BERBEDA (Air Garam, Larutan Gula, dan Larutan Teh)!',
+            desc: 'Campurkan pelarut (Air atau Alkohol) di Meja Racik untuk membuat 3 larutan homogen BERBEDA (pilihan: Air Garam, Larutan Gula, Larutan Teh, Hand Sanitizer, atau Ekstrak Teh)!',
             type: 'craft_unique_category',
             targetCategory: 'homogen',
-            targetCardIds: ['AIR_GARAM', 'AIR_GULA', 'AIR_TEH'],
+            targetCardIds: ['AIR_GARAM', 'AIR_GULA', 'AIR_TEH', 'HAND_SANITIZER', 'EKSTRAK_TEH'],
             target: 3,
             reward: 60,
           },
           {
             title: 'Misi 2: Ciptakan 3 Sistem Koloid Berbeda',
-            desc: 'Campurkan Air dengan 3 bahan berbeda untuk menghasilkan 3 sistem koloid BERBEDA (Susu Segar, Santan Kelapa, dan Air Sabun)!',
+            desc: 'Campurkan pelarut dengan bahan di Meja Racik untuk menghasilkan 3 sistem koloid BERBEDA (Susu Segar, Santan Kelapa, Air Sabun, atau Gel Antiseptik)!',
             type: 'craft_unique_category',
             targetCategory: 'koloid',
-            targetCardIds: ['SUSU_SEGAR', 'SANTAN', 'AIR_SABUN'],
+            targetCardIds: ['SUSU_SEGAR', 'SANTAN', 'AIR_SABUN', 'GEL_ANTISEPTIK'],
             target: 3,
             reward: 70,
           },
           {
             title: 'Misi 3: Buat 3 Campuran Heterogen Berbeda',
-            desc: 'Campurkan Air dengan 3 bahan berbeda untuk menghasilkan 3 campuran heterogen BERBEDA (Kopi Tubruk, Air Lumpur, dan Minyak & Air)!',
+            desc: 'Campurkan pelarut dengan bahan di Meja Racik untuk menghasilkan 3 campuran heterogen BERBEDA (Kopi Tubruk, Air Lumpur, Minyak & Air, Minyak & Alkohol, atau Endapan Garam)!',
             type: 'craft_unique_category',
             targetCategory: 'heterogen',
-            targetCardIds: ['KOPI_TUBRUK', 'AIR_LUMPUR', 'MINYAK_AIR'],
+            targetCardIds: ['KOPI_TUBRUK', 'AIR_LUMPUR', 'MINYAK_AIR', 'MINYAK_ALKOHOL', 'ENDAPAN_GARAM_ALKOHOL'],
             target: 3,
             reward: 80,
           },
@@ -1266,12 +1415,8 @@
         leaderboardTbody: document.getElementById('leaderboard-tbody'),
         formSaveScore: document.getElementById('form-save-score'),
         inputPlayerName: document.getElementById('input-player-name'),
-        btnClearScores: document.getElementById('btn-clear-scores'),
         btnContinueLevel: document.getElementById('btn-continue-level'),
-        // Leaderboard Cloud Elements
         modalLeaderboard: document.getElementById('modal-leaderboard'),
-        cloudStatusBadge: document.getElementById('cloud-status-badge'),
-        cloudStatusText: document.getElementById('cloud-status-text'),
         lbCurrentScore: document.getElementById('lb-current-score'),
         lbCurrentLevel: document.getElementById('lb-current-level'),
         btnRefreshScores: document.getElementById('btn-refresh-scores'),
@@ -1279,12 +1424,6 @@
         submitScoreIcon: document.getElementById('submit-score-icon'),
         submitScoreText: document.getElementById('submit-score-text'),
         saveScoreFeedback: document.getElementById('save-score-feedback'),
-        btnToggleCloudConfig: document.getElementById('btn-toggle-cloud-config'),
-        cloudToggleArrow: document.getElementById('cloud-toggle-arrow'),
-        cloudConfigPanel: document.getElementById('cloud-config-panel'),
-        inputCloudUrl: document.getElementById('input-cloud-url'),
-        btnSaveCloudUrl: document.getElementById('btn-save-cloud-url'),
-        btnResetCloudUrl: document.getElementById('btn-reset-cloud-url'),
         // Lab 1
         tubeUnsur: document.getElementById('tube-unsur'),
         tubeSenyawa: document.getElementById('tube-senyawa'),
@@ -1327,7 +1466,8 @@
         ];
       } else {
         rawPool = [
-          'AIR', 'AIR', 'AIR', 'AIR', 'AIR', 'AIR', 'AIR', 'AIR', 'AIR', 'AIR',
+          'AIR', 'AIR', 'AIR', 'AIR', 'AIR', 'AIR', 'AIR',
+          'ALKOHOL', 'ALKOHOL', 'ALKOHOL', 'ALKOHOL', 'ALKOHOL',
           'GARAM', 'GARAM', 'GULA', 'GULA', 'TEH', 'TEH',
           'SUSU_BUBUK', 'SUSU_BUBUK', 'KELAPA', 'KELAPA', 'SABUN', 'SABUN',
           'KOPI_BUBUK', 'KOPI_BUBUK', 'PASIR', 'PASIR', 'MINYAK', 'MINYAK'
@@ -1445,6 +1585,29 @@
       const svgIcon = SVG_ICONS[card.id] || SVG_ICONS.H;
       const stateTag = card.state ? card.state.toUpperCase() : 'ZAT';
 
+      // Format body kartu secara rapi tanpa teks ganda
+      let bodyHtml = '';
+      if (card.kind === 'bahan_dasar') {
+        const isPelarut = card.id === 'AIR' || card.id === 'ALKOHOL';
+        const roleLabel = isPelarut ? 'Pelarut' : 'Bahan Campuran';
+        const roleClass = isPelarut ? 'role-pelarut' : 'role-bahan';
+        bodyHtml = `
+          <div class="card-formula card-formula-bahan">${card.name}</div>
+          <div class="card-name card-role-tag ${roleClass}">${roleLabel}</div>
+        `;
+      } else if (card.kind === 'hasil_campuran') {
+        bodyHtml = `
+          <div class="card-formula card-formula-campuran">${card.name}</div>
+          <div class="card-name card-composition">${card.formula}</div>
+        `;
+      } else {
+        // Lab 1: Unsur Atom & Senyawa Kimia
+        bodyHtml = `
+          <div class="card-formula">${card.formula}</div>
+          <div class="card-name">${card.name}</div>
+        `;
+      }
+
       el.innerHTML = `
         <div class="card-top">
           <span class="card-tag">${stateTag}</span>
@@ -1456,8 +1619,7 @@
         </div>
 
         <div class="card-body">
-          <div class="card-formula">${card.formula}</div>
-          <div class="card-name">${card.name}</div>
+          ${bodyHtml}
         </div>
 
         <div class="card-bottom">
@@ -1577,7 +1739,7 @@
       // Aturan 1: Bahan dasar campuran belum dicampur
       if (cardData.category === 'bahan') {
         this.sound.sfxWrong();
-        this.showToast('Bahan dasar belum dicampur! Campurkan Air dengan bahan di Meja Racik untuk membuat campuran.', 'error');
+        this.showToast('Bahan dasar belum dicampur! Campurkan pelarut dengan bahan di Meja Racik untuk membuat campuran.', 'error');
         this.shakeElement(tubeEl);
         return;
       }
@@ -1702,6 +1864,37 @@
     placeInCraftingSlot(cardData, slotIndex) {
       const state = this.modeState[this.currentMode];
 
+      // Aturan Khusus Lab 2: Area Pelarut & Bahan Campuran
+      if (this.currentMode === 'campuran') {
+        const isPelarut = (cardData.id === 'AIR' || cardData.id === 'ALKOHOL');
+
+        // Aturan 1: Kartu pelarut HANYA bisa diletakkan di area Pelarut (Slot 0)
+        // Pengecualian: Jika slot 0 sudah diisi pelarut dan ingin meracik Hand Sanitizer (Air + Alkohol)
+        if (isPelarut && slotIndex !== 0) {
+          const slot0HasPelarut = state.benchSlots[0] && (state.benchSlots[0].id === 'AIR' || state.benchSlots[0].id === 'ALKOHOL');
+          if (!slot0HasPelarut) {
+            this.sound.sfxWrong();
+            const targetSlotEl = document.getElementById(`slot-campuran-${slotIndex}`);
+            this.shakeElement(targetSlotEl);
+            this.showToast('Kartu pelarut hanya bisa diletakkan di area Pelarut!', 'error');
+            this.selectedHandCard = null;
+            this.renderHandUI();
+            return;
+          }
+        }
+
+        // Aturan 2: Area Pelarut (Slot 0) HANYA BISA diisi oleh kartu pelarut
+        if (!isPelarut && slotIndex === 0) {
+          this.sound.sfxWrong();
+          const targetSlotEl = document.getElementById(`slot-campuran-${slotIndex}`);
+          this.shakeElement(targetSlotEl);
+          this.showToast('Area ini khusus untuk zat pelarut!', 'error');
+          this.selectedHandCard = null;
+          this.renderHandUI();
+          return;
+        }
+      }
+
       // Jika kartu yang sama persis sudah ada di slot ini, abaikan agar tidak terduplikasi
       if (state.benchSlots[slotIndex] && state.benchSlots[slotIndex].instanceId === cardData.instanceId) {
         this.selectedHandCard = null;
@@ -1794,8 +1987,8 @@
           slot.appendChild(miniCard);
         } else {
           slot.classList.remove('has-card');
-          const label = isUnsur ? `Bahan ${idx + 1}` : (idx === 0 ? 'Pelarut (Air)' : 'Bahan Dasar');
-          const icon = isUnsur ? '⚛️' : (idx === 0 ? '💧' : '🧂');
+          const label = isUnsur ? `Bahan ${idx + 1}` : (idx === 0 ? 'Pelarut' : 'Bahan Campuran');
+          const icon = isUnsur ? '⚛️' : (idx === 0 ? '🧪' : '🧂');
           slot.innerHTML = `
             <div class="slot-placeholder">
               <span class="slot-icon">${icon}</span>
@@ -1824,7 +2017,7 @@
       if (placed.length < 2) {
         clueEl.textContent = isUnsur
           ? 'Gabungkan 2 bahan di meja untuk membentuk molekul unsur gas atau senyawa baru!'
-          : 'Campurkan Air dan bahan dasar untuk membuat campuran!';
+          : 'Campurkan zat pelarut dan bahan dasar untuk membuat campuran!';
         return;
       }
 
@@ -2096,8 +2289,9 @@
       displayItems.forEach((item) => {
         const pill = document.createElement('span');
         pill.className = `chest-pill pill-${type}`;
-        pill.textContent = item.formula || item.name;
-        pill.title = `${item.name} (${item.formula})`;
+        const pillText = item.kind === 'hasil_campuran' ? item.name : (item.formula || item.name);
+        pill.textContent = pillText;
+        pill.title = item.kind === 'hasil_campuran' ? `${item.name} (${item.formula})` : `${item.name} (${item.formula})`;
         container.appendChild(pill);
       });
 
@@ -2158,13 +2352,16 @@
           const cardEl = document.createElement('div');
           cardEl.className = 'chest-item-card';
           const svgIcon = SVG_ICONS[item.id] || SVG_ICONS.H;
+          const isCampuran = item.kind === 'hasil_campuran';
+          const primaryTitle = isCampuran ? item.name : item.formula;
+          const secondaryTitle = isCampuran ? item.formula : item.name;
 
           cardEl.innerHTML = `
             <div class="card-illustration-box">
               ${svgIcon}
             </div>
-            <div class="chest-item-formula">${item.formula}</div>
-            <div class="chest-item-name">${item.name}</div>
+            <div class="chest-item-formula ${isCampuran ? 'chest-item-campuran' : ''}">${primaryTitle}</div>
+            <div class="chest-item-name">${secondaryTitle}</div>
             <div class="chest-item-meta">
               <span class="card-state-pill">${item.state || 'Zat'}</span>
               <span class="card-points-badge">+${item.pts} Pts</span>
@@ -2360,43 +2557,6 @@
         });
       }
 
-      if (this.dom.btnToggleCloudConfig) {
-        this.dom.btnToggleCloudConfig.addEventListener('click', () => {
-          const panel = this.dom.cloudConfigPanel;
-          const arrow = this.dom.cloudToggleArrow;
-          if (!panel) return;
-          const isHidden = panel.style.display === 'none' || !panel.style.display;
-          panel.style.display = isHidden ? 'block' : 'none';
-          if (arrow) arrow.textContent = isHidden ? '▲' : '▼';
-        });
-      }
-
-      if (this.dom.btnSaveCloudUrl) {
-        this.dom.btnSaveCloudUrl.addEventListener('click', () => {
-          const url = (this.dom.inputCloudUrl ? this.dom.inputCloudUrl.value : '').trim();
-          if (!url) {
-            this.showToast('Masukkan URL Web App Google Apps Script.', 'error');
-            return;
-          }
-          if (!url.startsWith('http://') && !url.startsWith('https://')) {
-            this.showToast('Format URL tidak valid. Harus diawali https://', 'error');
-            return;
-          }
-          this.setCloudUrl(url);
-          this.showToast('URL Google Sheets disimpan! Menguji koneksi...', 'info');
-          this.fetchLeaderboardData(true);
-        });
-      }
-
-      if (this.dom.btnResetCloudUrl) {
-        this.dom.btnResetCloudUrl.addEventListener('click', () => {
-          this.setCloudUrl('');
-          if (this.dom.inputCloudUrl) this.dom.inputCloudUrl.value = DEFAULT_GAS_URL;
-          this.showToast('URL direset ke Google Sheets bawaan kelas.', 'info');
-          this.fetchLeaderboardData(true);
-        });
-      }
-
       if (this.dom.btnContinueLevel) {
         this.dom.btnContinueLevel.addEventListener('click', () => {
           document.getElementById('modal-levelup').classList.remove('active');
@@ -2424,17 +2584,6 @@
           }
         });
       }
-
-      if (this.dom.btnClearScores) {
-        this.dom.btnClearScores.addEventListener('click', () => {
-          if (confirm('Hapus seluruh riwayat peringkat di peramban ini?')) {
-            localStorage.removeItem('elementalcrafting_leaderboard');
-            localStorage.removeItem('zatcraft_leaderboard');
-            this.renderLeaderboard();
-            this.showToast('Data peringkat direset.', 'info');
-          }
-        });
-      }
     }
 
     openCardDetailModal(cardId) {
@@ -2453,7 +2602,14 @@
       badge.textContent = card.state ? card.state.toUpperCase() : 'ZAT';
 
       title.textContent = card.name;
-      formula.textContent = `Simbol / Rumus: ${card.formula}`;
+      if (card.kind === 'bahan_dasar') {
+        const isPelarut = card.id === 'AIR' || card.id === 'ALKOHOL';
+        formula.textContent = isPelarut ? 'Peran: Zat Pelarut' : 'Peran: Bahan Campuran Dasar';
+      } else if (card.kind === 'hasil_campuran') {
+        formula.textContent = `Komposisi: ${card.formula}`;
+      } else {
+        formula.textContent = `Simbol / Rumus Kimia: ${card.formula}`;
+      }
       state.textContent = card.state;
       trivia.textContent = card.trivia;
 
@@ -2546,40 +2702,14 @@
       }
     }
 
-    getCloudUrl() {
-      const saved = localStorage.getItem('elementalcrafting_cloud_url');
-      if (saved !== null && saved !== undefined && saved !== '') {
-        return saved.trim();
-      }
-      return DEFAULT_GAS_URL;
-    }
-
-    setCloudUrl(url) {
-      if (url) {
-        localStorage.setItem('elementalcrafting_cloud_url', url.trim());
-      } else {
-        localStorage.removeItem('elementalcrafting_cloud_url');
-      }
-    }
-
-    updateCloudStatusUI(status, text) {
-      const badge = this.dom.cloudStatusBadge;
-      const textElem = this.dom.cloudStatusText;
-      if (!badge || !textElem) return;
-
-      badge.classList.remove('online', 'offline', 'loading');
-      badge.classList.add(status);
-      textElem.textContent = text;
-    }
-
     openLeaderboardModal() {
       if (this.dom.lbCurrentScore) this.dom.lbCurrentScore.textContent = this.score;
       if (this.dom.lbCurrentLevel) this.dom.lbCurrentLevel.textContent = this.level;
-      if (this.dom.inputCloudUrl) this.dom.inputCloudUrl.value = this.getCloudUrl();
 
       const modal = this.dom.modalLeaderboard || document.getElementById('modal-leaderboard');
       if (modal) modal.classList.add('active');
 
+      // Langsung lakukan koneksi ke backend GAS saat leaderboard diakses
       this.fetchLeaderboardData();
     }
 
@@ -2590,42 +2720,28 @@
           const parsed = JSON.parse(data);
           if (Array.isArray(parsed) && parsed.length > 0) return parsed;
         } catch (e) {
-          // fallback ke bawaan
+          // fallback
         }
       }
-      return [
-        { name: 'Ahmad Fathoni (7A)', score: 320, level: 4, date: '16/11/2026' },
-        { name: 'Naila Azzahra (7B)', score: 260, level: 3, date: '16/11/2026' },
-        { name: 'Rafi Al-Ghifari (7C)', score: 190, level: 2, date: '16/11/2026' },
-      ];
+      return [];
     }
 
     async fetchLeaderboardData(isManualRefresh = false) {
-      const cloudUrl = this.getCloudUrl();
       const refreshBtn = this.dom.btnRefreshScores;
+      const tbody = this.dom.leaderboardTbody;
 
       if (refreshBtn) refreshBtn.classList.add('spin');
 
-      if (!cloudUrl) {
-        this.updateCloudStatusUI('offline', 'Mode Lokal (Offline)');
-        this.renderLeaderboard(this.getStoredScores());
-        if (refreshBtn) refreshBtn.classList.remove('spin');
-        if (isManualRefresh) {
-          this.showToast('Data lokal diperbarui. Hubungkan URL Google Sheets untuk mode online!', 'info');
-        }
-        return;
-      }
-
-      this.updateCloudStatusUI('loading', 'Menghubungkan ke Sheets...');
-
-      // Render cache lokal dulu agar tabel langsung terisi tanpa layar kosong
+      // Tampilkan cache lokal terlebih dahulu jika ada, atau status memuat
       const cached = this.getStoredScores();
-      if (cached && cached.length) {
+      if (cached && cached.length > 0) {
         this.renderLeaderboard(cached);
+      } else if (tbody) {
+        tbody.innerHTML = '<tr><td colspan="5" class="lb-loading-cell">⏳ Memuat data peringkat...</td></tr>';
       }
 
       try {
-        const fetchUrl = `${cloudUrl}${cloudUrl.includes('?') ? '&' : '?'}action=get&limit=15&_t=${Date.now()}`;
+        const fetchUrl = `${GAS_ENDPOINT_URL}${GAS_ENDPOINT_URL.includes('?') ? '&' : '?'}action=get&limit=15&_t=${Date.now()}`;
         const res = await fetch(fetchUrl, {
           method: 'GET',
           headers: { 'Accept': 'application/json' }
@@ -2642,23 +2758,22 @@
             date: item.date || ''
           }));
 
-          // Simpan ke cache lokal
+          // Simpan ke cache lokal sebagai cadangan
           localStorage.setItem('elementalcrafting_leaderboard', JSON.stringify(list));
-          this.updateCloudStatusUI('online', 'Cloud Google Sheets Aktif');
           this.renderLeaderboard(list);
 
           if (isManualRefresh) {
-            this.showToast('✅ Papan peringkat berhasil disinkronkan dari Google Sheets!', 'success');
+            this.showToast('✅ Data peringkat berhasil diperbarui!', 'success');
           }
         } else {
-          throw new Error(result.message || 'Format respon tidak valid');
+          throw new Error(result.message || 'Respon tidak valid');
         }
       } catch (err) {
-        console.warn('Gagal mengambil data dari Google Sheets:', err);
-        this.updateCloudStatusUI('offline', 'Gagal Sinkron (Mode Offline)');
-        this.renderLeaderboard(this.getStoredScores());
+        console.warn('Koneksi langsung ke GAS:', err);
+        const fallback = this.getStoredScores();
+        this.renderLeaderboard(fallback);
         if (isManualRefresh) {
-          this.showToast('⚠️ Gagal terhubung ke Google Sheets. Periksa URL Anda.', 'error');
+          this.showToast('Tidak dapat terhubung ke server saat ini.', 'info');
         }
       } finally {
         if (refreshBtn) refreshBtn.classList.remove('spin');
@@ -2674,7 +2789,7 @@
         date: new Date().toLocaleDateString('id-ID'),
       };
 
-      // 1. Simpan dan render secara instan ke LocalStorage (Offline-first)
+      // 1. Simpan & render instan di peramban lokal (offline-first)
       const localScores = this.getStoredScores();
       localScores.push(entry);
       localScores.sort((a, b) => b.score - a.score);
@@ -2682,24 +2797,17 @@
       localStorage.setItem('elementalcrafting_leaderboard', JSON.stringify(topScores));
       this.renderLeaderboard(topScores);
 
-      const cloudUrl = this.getCloudUrl();
-
-      if (!cloudUrl) {
-        this.showToast(`🏆 Skor ${name} (${this.score} poin) berhasil disimpan secara lokal!`, 'success');
-        return;
-      }
-
-      // 2. Jika Cloud URL terpasang, kirim ke Google Apps Script Web App
+      // 2. Langsung kirim ke backend GAS secara transparan
       const submitBtn = this.dom.btnSubmitScore;
       const iconSpan = this.dom.submitScoreIcon;
       const textSpan = this.dom.submitScoreText;
 
       if (submitBtn) submitBtn.disabled = true;
       if (iconSpan) iconSpan.textContent = '⏳';
-      if (textSpan) textSpan.textContent = 'Menyinkronkan...';
+      if (textSpan) textSpan.textContent = 'Menyimpan...';
 
       try {
-        await fetch(cloudUrl, {
+        await fetch(GAS_ENDPOINT_URL, {
           method: 'POST',
           mode: 'no-cors',
           headers: {
@@ -2708,15 +2816,15 @@
           body: JSON.stringify(entry)
         });
 
-        this.showToast(`☁️ Skor ${name} (${this.score} poin) berhasil dicatat ke Google Sheets!`, 'success');
+        this.showToast(`🏆 Skor ${name} (${this.score} poin) berhasil disimpan!`, 'success');
 
-        // Tunggu sejenak agar Google Apps Script selesai menulis dan mengurutkan baris, lalu refresh
+        // Refresh data dari server GAS setelah jeda singkat
         setTimeout(() => {
           this.fetchLeaderboardData();
         }, 1200);
       } catch (err) {
-        console.warn('Gagal mengirim skor ke Cloud:', err);
-        this.showToast(`Skor tersimpan di peramban lokal (Google Sheets tidak merespons)`, 'info');
+        console.warn('Gagal POST ke GAS:', err);
+        this.showToast(`Skor tersimpan di peramban lokal`, 'info');
       } finally {
         if (submitBtn) submitBtn.disabled = false;
         if (iconSpan) iconSpan.textContent = '🚀';
@@ -2792,13 +2900,23 @@
     if (window.location.hash.includes('leaderboard')) {
       setTimeout(() => {
         window.elementalCrafting.openLeaderboardModal();
-        if (window.location.hash.includes('cloud')) {
-          const panel = document.getElementById('cloud-config-panel');
-          const arrow = document.getElementById('cloud-toggle-arrow');
-          if (panel) panel.style.display = 'block';
-          if (arrow) arrow.textContent = '▲';
-        }
       }, 200);
+    }
+
+    if (window.location.hash.includes('test_deck')) {
+      setTimeout(() => {
+        const app = window.elementalCrafting;
+        app.switchMode('campuran');
+        const st = app.modeState.campuran;
+        st.hand = [
+          { instanceId: 'card_alkohol', cardId: 'ALKOHOL', ...CARDS_DB.ALKOHOL },
+          { instanceId: 'card_air', cardId: 'AIR', ...CARDS_DB.AIR },
+          { instanceId: 'card_garam', cardId: 'GARAM', ...CARDS_DB.GARAM },
+          { instanceId: 'card_hs', cardId: 'HAND_SANITIZER', ...CARDS_DB.HAND_SANITIZER },
+          { instanceId: 'card_kopi', cardId: 'KOPI_BUBUK', ...CARDS_DB.KOPI_BUBUK }
+        ];
+        app.renderHandUI();
+      }, 300);
     }
   });
 })();

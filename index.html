@@ -339,7 +339,7 @@
             <span class="zone-num">2</span>
             <h3>Meja Racik & Pencampuran Zat</h3>
           </div>
-          <span class="zone-hint">Campurkan Air dengan bahan dasar untuk membuat campuran (+30 Poin)</span>
+          <span class="zone-hint">Campurkan zat pelarut dengan bahan campuran (+30 Poin)</span>
         </div>
 
         <div class="lab-bench">
@@ -347,8 +347,8 @@
             <div class="crafting-slots-wrapper">
               <div class="crafting-slot" data-slot="0" id="slot-campuran-0">
                 <div class="slot-placeholder">
-                  <span class="slot-icon">💧</span>
-                  <span class="slot-label">Pelarut (Air)</span>
+                  <span class="slot-icon">🧪</span>
+                  <span class="slot-label">Pelarut</span>
                   <small>Tarik ke sini</small>
                 </div>
               </div>
@@ -356,7 +356,7 @@
               <div class="crafting-slot" data-slot="1" id="slot-campuran-1">
                 <div class="slot-placeholder">
                   <span class="slot-icon">🧂</span>
-                  <span class="slot-label">Bahan Dasar</span>
+                  <span class="slot-label">Bahan Campuran</span>
                   <small>Tarik ke sini</small>
                 </div>
               </div>
@@ -374,7 +374,7 @@
 
           <div class="crafting-clue" id="clue-campuran">
             <span class="clue-icon">💡</span>
-            <span id="clue-text-campuran">Campurkan Air dan bahan dasar untuk membuat campuran!</span>
+            <span id="clue-text-campuran">Campurkan zat pelarut dan bahan dasar untuk membuat campuran!</span>
           </div>
         </div>
       </section>
@@ -508,7 +508,7 @@
           <div class="tut-num">2</div>
           <div class="tut-content">
             <h4>🧪 Lab 2: Ragam Campuran</h4>
-            <p>Campurkan Air dengan bahan di meja racik. Tentukan jenis campurannya: <strong>Homogen</strong>, <strong>Koloid</strong>, atau <strong>Heterogen</strong>!</p>
+            <p>Campurkan zat pelarut (Air atau Alkohol) dengan bahan di meja racik. Tentukan jenis campurannya: <strong>Homogen</strong>, <strong>Koloid</strong>, atau <strong>Heterogen</strong>!</p>
           </div>
         </div>
       </div>
@@ -531,16 +531,12 @@
 
       <!-- Status Bar & Stats -->
       <div class="leaderboard-status-bar">
-        <div class="cloud-status-badge online" id="cloud-status-badge">
-          <span class="status-dot"></span>
-          <span id="cloud-status-text">Cloud Google Sheets Aktif</span>
-        </div>
         <div class="lb-player-stat">
-          Skor Kamu: <strong id="lb-current-score">0</strong> <span class="lb-stat-sep">•</span> Lv. <strong id="lb-current-level">1</strong>
+          <span>🎯</span> Skor Kamu: <strong id="lb-current-score">0</strong> <span class="lb-stat-sep">•</span> Level <strong id="lb-current-level">1</strong>
         </div>
         <button type="button" id="btn-refresh-scores" class="btn-refresh" title="Perbarui data peringkat">
           <span class="refresh-icon">🔄</span>
-          <span class="refresh-text">Segarkan</span>
+          <span class="refresh-text">Segarkan Data</span>
         </button>
       </div>
 
@@ -570,30 +566,7 @@
         </table>
       </div>
 
-      <!-- Pengaturan Cloud Google Sheets (Collapsible) -->
-      <div class="cloud-config-drawer">
-        <button type="button" class="btn-toggle-cloud" id="btn-toggle-cloud-config">
-          <span class="cloud-icon">📊</span>
-          <span>Hubungkan ke Google Sheets Kelas</span>
-          <span class="toggle-arrow" id="cloud-toggle-arrow">▼</span>
-        </button>
-        <div class="cloud-config-content" id="cloud-config-panel" style="display: none;">
-          <p class="cloud-help-text">
-            Sinkronkan skor seluruh siswa secara online langsung ke spreadsheet guru menggunakan Google Apps Script Web App.
-          </p>
-          <div class="cloud-input-group">
-            <input type="url" id="input-cloud-url" value="https://script.google.com/macros/s/AKfycbzIGZ_PeVHOADYayezK0nrFzma_7FWuViKyK3yxUDln45esVsGz-8RTKaMlfOiibeb0/exec" placeholder="https://script.google.com/macros/s/.../exec" spellcheck="false">
-            <button type="button" id="btn-save-cloud-url" class="btn-secondary">Simpan URL</button>
-            <button type="button" id="btn-reset-cloud-url" class="btn-text" title="Reset URL ke bawaan spreadsheet kelas">Reset</button>
-          </div>
-          <div class="cloud-tips-box">
-            💡 Kode Google Apps Script siap pakai berada di folder <code>GAS/Code.gs</code>. Deploy sebagai <em>Aplikasi Web</em> dengan hak akses <em>Siapa saja (Anyone)</em>.
-          </div>
-        </div>
-      </div>
-
       <div class="modal-actions">
-        <button type="button" class="btn-secondary" id="btn-clear-scores">Reset Data Lokal</button>
         <button type="button" class="btn-primary" data-close="modal-leaderboard">Tutup</button>
       </div>
     </div>
