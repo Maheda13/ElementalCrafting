@@ -1189,6 +1189,51 @@
       desc: 'Garam dapur tidak larut dalam pelarut organik alkohol dan mengendap di dasar tabung.',
       unlocked: false,
     },
+    {
+      id: 'rec_ekstrak_kopi',
+      ingredients: ['ALKOHOL', 'KOPI_BUBUK'],
+      result: 'EKSTRAK_KOPI',
+      pts: 35,
+      title: 'Ekstrak Kopi (Alkohol + Kopi)',
+      desc: 'Pelarut alkohol melarutkan kafein dan minyak aroma kopi menjadi larutan ekstrak jernih tanpa ampas.',
+      unlocked: false,
+    },
+    {
+      id: 'rec_gula_alkohol',
+      ingredients: ['ALKOHOL', 'GULA'],
+      result: 'ENDAPAN_GULA_ALKOHOL',
+      pts: 35,
+      title: 'Endapan Gula (Alkohol + Gula)',
+      desc: 'Gula pasir sukar larut dalam alkohol dan mengendap di dasar wadah membentuk campuran heterogen.',
+      unlocked: false,
+    },
+    {
+      id: 'rec_pasir_alkohol',
+      ingredients: ['ALKOHOL', 'PASIR'],
+      result: 'PASIR_ALKOHOL',
+      pts: 30,
+      title: 'Endapan Pasir (Alkohol + Pasir)',
+      desc: 'Butiran pasir batuan sama sekali tidak larut dalam alkohol dan cepat mengendap di dasar cairan.',
+      unlocked: false,
+    },
+    {
+      id: 'rec_susu_alkohol',
+      ingredients: ['ALKOHOL', 'SUSU_BUBUK'],
+      result: 'SUSU_KOAGULASI',
+      pts: 35,
+      title: 'Gumpalan Susu (Alkohol + Susu)',
+      desc: 'Alkohol mendenaturasi ikatan protein susu sehingga menggumpal (koagulasi) membentuk koloid kental.',
+      unlocked: false,
+    },
+    {
+      id: 'rec_kelapa_alkohol',
+      ingredients: ['ALKOHOL', 'KELAPA'],
+      result: 'AMPAS_KELAPA_ALKOHOL',
+      pts: 30,
+      title: 'Ampas Kelapa (Alkohol + Kelapa)',
+      desc: 'Serat kelapa parut tidak larut dan mengapung di atas cairan alkohol membentuk campuran heterogen.',
+      unlocked: false,
+    },
   ];
 
   // ==========================================================================
@@ -1438,28 +1483,28 @@
         campuran: [
           {
             title: 'Misi 1: Racik 3 Larutan Homogen Berbeda',
-            desc: 'Campurkan pelarut (Air atau Alkohol) di Meja Racik untuk membuat 3 larutan homogen BERBEDA (pilihan: Air Garam, Larutan Gula, Larutan Teh, Hand Sanitizer, atau Ekstrak Teh)!',
+            desc: 'Campurkan pelarut (Air atau Alkohol) di Meja Racik untuk membuat 3 larutan homogen BERBEDA (pilihan: Air Garam, Larutan Gula, Larutan Teh, Hand Sanitizer, Ekstrak Teh, atau Ekstrak Kopi)!',
             type: 'craft_unique_category',
             targetCategory: 'homogen',
-            targetCardIds: ['AIR_GARAM', 'AIR_GULA', 'AIR_TEH', 'HAND_SANITIZER', 'EKSTRAK_TEH'],
+            targetCardIds: ['AIR_GARAM', 'AIR_GULA', 'AIR_TEH', 'HAND_SANITIZER', 'EKSTRAK_TEH', 'EKSTRAK_KOPI'],
             target: 3,
             reward: 60,
           },
           {
             title: 'Misi 2: Ciptakan 3 Sistem Koloid Berbeda',
-            desc: 'Campurkan pelarut dengan bahan di Meja Racik untuk menghasilkan 3 sistem koloid BERBEDA (Susu Segar, Santan Kelapa, Air Sabun, atau Gel Antiseptik)!',
+            desc: 'Campurkan pelarut dengan bahan di Meja Racik untuk menghasilkan 3 sistem koloid BERBEDA (Susu Segar, Santan Kelapa, Air Sabun, Gel Antiseptik, atau Gumpalan Susu)!',
             type: 'craft_unique_category',
             targetCategory: 'koloid',
-            targetCardIds: ['SUSU_SEGAR', 'SANTAN', 'AIR_SABUN', 'GEL_ANTISEPTIK'],
+            targetCardIds: ['SUSU_SEGAR', 'SANTAN', 'AIR_SABUN', 'GEL_ANTISEPTIK', 'SUSU_KOAGULASI'],
             target: 3,
             reward: 70,
           },
           {
             title: 'Misi 3: Buat 3 Campuran Heterogen Berbeda',
-            desc: 'Campurkan pelarut dengan bahan di Meja Racik untuk menghasilkan 3 campuran heterogen BERBEDA (Kopi Tubruk, Air Lumpur, Minyak & Air, Minyak & Alkohol, atau Endapan Garam)!',
+            desc: 'Campurkan pelarut dengan bahan di Meja Racik untuk menghasilkan 3 campuran heterogen BERBEDA (Kopi Tubruk, Air Lumpur, Minyak & Air, Minyak & Alkohol, Endapan Garam/Gula, atau Pasir/Ampas Alkohol)!',
             type: 'craft_unique_category',
             targetCategory: 'heterogen',
-            targetCardIds: ['KOPI_TUBRUK', 'AIR_LUMPUR', 'MINYAK_AIR', 'MINYAK_ALKOHOL', 'ENDAPAN_GARAM_ALKOHOL'],
+            targetCardIds: ['KOPI_TUBRUK', 'AIR_LUMPUR', 'MINYAK_AIR', 'MINYAK_ALKOHOL', 'ENDAPAN_GARAM_ALKOHOL', 'ENDAPAN_GULA_ALKOHOL', 'PASIR_ALKOHOL', 'AMPAS_KELAPA_ALKOHOL'],
             target: 3,
             reward: 80,
           },
@@ -1542,9 +1587,9 @@
         return [
           'H', 'H', 'H', 'H', 'H', 'H',
           'O', 'O', 'O', 'O',
-          'C', 'C', 'C',
-          'Fe', 'Fe',
-          'Na', 'Na',
+          'C', 'C', 'C', 'C',
+          'Fe', 'Fe', 'Fe',
+          'Na', 'Na', 'Na',
           'Cl', 'Cl', 'Cl', 'Cl',
           'N', 'N', 'N', 'N',
           'Au', 'Au'
@@ -1562,7 +1607,22 @@
 
     refillDeck(mode) {
       const state = this.modeState[mode];
-      state.deck = this.shuffleArray([...this.getDeckPool(mode)]);
+      const pool = [...this.getDeckPool(mode)];
+
+      // Sisihkan kartu yang sedang aktif di tangan atau meja racik agar jumlah total kartu game konsisten
+      const activeCardIds = [
+        ...(state.hand || []).map((c) => c.cardId || c.id),
+        ...(state.benchSlots || []).filter(Boolean).map((c) => c.cardId || c.id),
+      ];
+
+      activeCardIds.forEach((id) => {
+        const idx = pool.indexOf(id);
+        if (idx !== -1) {
+          pool.splice(idx, 1);
+        }
+      });
+
+      state.deck = this.shuffleArray(pool);
     }
 
     addCardToHand(state, cardId) {
@@ -1579,8 +1639,9 @@
 
     initDeckForMode(mode) {
       const state = this.modeState[mode];
-      this.refillDeck(mode);
       state.hand = [];
+      state.benchSlots = [null, null];
+      this.refillDeck(mode);
 
       if (mode === 'campuran') {
         // Jamin tangan awal seimbang: 2 Pelarut (Air & Alkohol) + 3 Bahan Campuran Unik
@@ -1668,14 +1729,15 @@
           if (matchIdx !== -1) {
             cardId = state.deck.splice(matchIdx, 1)[0];
           } else {
-            // Jika kartu kategori tersebut kebetulan habis di sisa deck, isi ulang deck
-            this.refillDeck(this.currentMode);
-            const freshIdx = state.deck.findIndex((id) => {
-              return neededType === 'pelarut' ? isPelarut(id) : !isPelarut(id);
-            });
-            if (freshIdx !== -1) {
-              cardId = state.deck.splice(freshIdx, 1)[0];
+            // Jika kartu kategori tersebut tidak ada di sisa dek saat ini,
+            // berikan kartu yang dibutuhkan dan kurangi 1 kartu dari dek agar jumlah kartu dek berkurang konsisten
+            if (state.deck.length > 0) {
+              state.deck.pop();
             }
+            const fallbackBahan = ['GARAM', 'GULA', 'TEH', 'SUSU_BUBUK', 'KELAPA', 'SABUN', 'KOPI_BUBUK', 'PASIR', 'MINYAK'];
+            cardId = neededType === 'pelarut'
+              ? (Math.random() > 0.4 ? 'AIR' : 'ALKOHOL')
+              : fallbackBahan[Math.floor(Math.random() * fallbackBahan.length)];
           }
         }
       }
@@ -1699,7 +1761,7 @@
       this.currentMode = newMode;
       this.selectedHandCard = null;
 
-      if (newMode === 'unsur_senyawa') {
+      if (this.currentMode === 'unsur_senyawa') {
         this.dom.btnModeUnsur.classList.add('active');
         this.dom.btnModeCampuran.classList.remove('active');
         this.dom.boardUnsurSenyawa.style.display = 'grid';
@@ -1912,6 +1974,14 @@
           }
         }
       });
+
+      cardEl.addEventListener('touchcancel', () => {
+        if (touchClone) {
+          touchClone.remove();
+          touchClone = null;
+        }
+        cardEl.classList.remove('dragging');
+      });
     }
 
     // --- KLASIFIKASI KE TABUNG / BEAKER (DENGAN ATURAN GAS DIATOMIK ALAMI) ---
@@ -1943,22 +2013,31 @@
         this.score += totalEarned;
 
         const state = this.modeState[this.currentMode];
-        if (state.tubeCounts[targetType] !== undefined) {
-          state.tubeCounts[targetType] += 1;
-        }
 
         if (!state.chestItems) state.chestItems = {};
         if (!state.chestItems[targetType]) state.chestItems[targetType] = [];
-        state.chestItems[targetType].push({
-          id: cardData.id,
-          name: cardData.name,
-          formula: cardData.formula,
-          pts: cardData.pts,
-          state: cardData.state,
-          kind: cardData.kind,
-          trivia: cardData.trivia,
-          category: cardData.category,
-        });
+
+        // Cek apakah kartu dengan ID ini sudah pernah dimasukkan ke dalam wadah ini
+        const existingItem = state.chestItems[targetType].find((item) => item.id === cardData.id);
+        if (existingItem) {
+          existingItem.count = (existingItem.count || 1) + 1;
+        } else {
+          state.chestItems[targetType].push({
+            id: cardData.id,
+            name: cardData.name,
+            formula: cardData.formula,
+            pts: cardData.pts,
+            state: cardData.state,
+            kind: cardData.kind,
+            trivia: cardData.trivia,
+            category: cardData.category,
+            count: 1,
+          });
+        }
+
+        if (state.tubeCounts[targetType] !== undefined) {
+          state.tubeCounts[targetType] = state.chestItems[targetType].length;
+        }
 
         this.sound.sfxCorrect();
         const rect = tubeEl.getBoundingClientRect();
@@ -1970,7 +2049,9 @@
         else targetLabel = `Beaker ${targetType.toUpperCase()}`;
 
         let praise = `Benar! ${cardData.name} tepat disimpan ke ${targetLabel}! (+${totalEarned} Poin)`;
-        if (cardData.kind === 'molekul_unsur') {
+        if (existingItem) {
+          praise = `Benar! Koleksi ${cardData.name} bertambah di ${targetLabel} (Total: ${existingItem.count}x)! (+${totalEarned} Poin)`;
+        } else if (cardData.kind === 'molekul_unsur') {
           praise = `Tepat sekali! Gas ${cardData.name} (${cardData.formula}) adalah wujud molekul gas stabil dan tersimpan rapi di Peti Unsur! (+${totalEarned} Poin)`;
         }
         this.showToast(praise, 'success');
@@ -1980,7 +2061,10 @@
 
         if (state.hand.length < 3) {
           setTimeout(() => {
-            this.drawCardForState(state, true);
+            while (state.hand.length < 3 && (state.deck.length > 0 || this.getDeckPool(this.currentMode).length > 0)) {
+              if (!this.drawCardForState(state, false)) break;
+            }
+            this.sound.sfxDraw();
             this.renderHandUI();
           }, 350);
         }
@@ -2160,13 +2244,60 @@
         }
       }
 
-      // Kosongkan kartu di meja racik jika ada
+      // 1. Kembalikan kartu di meja racik ke tangan jika ada
       for (let i = 0; i < state.benchSlots.length; i++) {
-        state.benchSlots[i] = null;
+        if (state.benchSlots[i]) {
+          state.hand.push(state.benchSlots[i]);
+          state.benchSlots[i] = null;
+        }
       }
 
-      // Acak ulang dek dan berikan 5 kartu baru yang segar & seimbang
-      this.initDeckForMode(this.currentMode);
+      // 2. Fungsi pengenal kartu hasil gabungan/sintesis (Lab 1 & Lab 2)
+      const isCraftedCard = (c) => {
+        if (!c) return false;
+        if (c.kind === 'hasil_campuran' || c.kind === 'molekul_senyawa' || c.kind === 'molekul_unsur') return true;
+        const craftedIds = [
+          'H2', 'O2', 'N2', 'Cl2', 'H2O', 'NaCl', 'CO2', 'Fe2O3', 'CH4', 'NH3', 'HCl',
+          'AIR_GARAM', 'AIR_GULA', 'AIR_TEH', 'SUSU_SEGAR', 'SANTAN', 'AIR_SABUN', 'KOPI_TUBRUK', 'AIR_LUMPUR', 'MINYAK_AIR',
+          'HAND_SANITIZER', 'EKSTRAK_TEH', 'GEL_ANTISEPTIK', 'MINYAK_ALKOHOL', 'ENDAPAN_GARAM_ALKOHOL',
+          'EKSTRAK_KOPI', 'ENDAPAN_GULA_ALKOHOL', 'PASIR_ALKOHOL', 'SUSU_KOAGULASI', 'AMPAS_KELAPA_ALKOHOL'
+        ];
+        return craftedIds.includes(c.cardId || c.id);
+      };
+
+      // 3. Pisahkan kartu dasar (dari dek) dan kartu hasil sintesis (agar hasil racikan TIDAK hilang)
+      const baseCards = state.hand.filter((c) => !isCraftedCard(c));
+      const craftedCards = state.hand.filter(isCraftedCard);
+
+      // Jika seluruh kartu di tangan adalah kartu hasil gabungan dan tangan sudah penuh
+      if (baseCards.length === 0 && craftedCards.length >= 5) {
+        this.sound.sfxDraw();
+        this.renderBenchUI();
+        this.renderHandUI();
+        this.checkCraftingClues();
+        this.showToast('✨ Semua kartu di tangan adalah hasil gabungan! Simpan ke wadah klasifikasi untuk mengosongkan tangan.', 'info');
+        return;
+      }
+
+      // 4. Masukkan kembali kartu dasar ke dalam tumpukan dek
+      baseCards.forEach((c) => {
+        state.deck.push(c.cardId || c.id);
+      });
+
+      // 5. Acak ulang dek yang berisi kartu-kartu dasar yang dikembalikan
+      state.deck = this.shuffleArray(state.deck);
+
+      // 6. Kartu di tangan memegang seluruh kartu hasil sintesis yang aman terjaga
+      state.hand = [...craftedCards];
+
+      // 7. Hitung berapa banyak kartu dasar baru yang perlu ditarik
+      // Tangan idealnya memiliki minimal 5 kartu (atau sebanyak kartu dasar yang dikocok ulang)
+      const numToDraw = Math.min(Math.max(baseCards.length, 5 - craftedCards.length), 7 - craftedCards.length);
+
+      for (let i = 0; i < numToDraw; i++) {
+        if (state.deck.length === 0) break;
+        this.drawCardForState(state, false);
+      }
 
       this.selectedHandCard = null;
       this.sound.sfxDraw();
@@ -2174,7 +2305,11 @@
       this.renderHandUI();
       this.checkCraftingClues();
 
-      this.showToast('🔄 Kartu di tangan berhasil dikocok ulang!', 'info');
+      if (craftedCards.length > 0) {
+        this.showToast(`🔄 Kartu bahan dikocok ulang! (${craftedCards.length} kartu hasil gabungan tetap aman di tangan)`, 'info');
+      } else {
+        this.showToast('🔄 Kartu di tangan berhasil dikocok ulang!', 'info');
+      }
     }
 
     renderBenchUI() {
@@ -2238,6 +2373,8 @@
       if (recipe) {
         const resCard = CARDS_DB[recipe.result];
         clueEl.innerHTML = `🌟 <strong>Siap ${isUnsur ? 'Digabungkan' : 'Dicampur'}:</strong> Menghasilkan <strong>${resCard.name} (${resCard.formula})</strong>!`;
+      } else if (isUnsur && placedIds.includes('Au')) {
+        clueEl.innerHTML = '💡 <strong>Emas (Au):</strong> Logam mulia murni yang sangat stabil (inert) dan tidak bereaksi. Langsung simpan ke <strong>Peti Unsur</strong>!';
       } else {
         clueEl.textContent = '❓ Belum ditemukan reaksi stabil untuk kedua bahan ini. Coba bahan lain!';
       }
@@ -2446,33 +2583,36 @@
     renderTubesUI() {
       // Lab 1: Peti Unsur & Peti Senyawa
       const s1 = this.modeState.unsur_senyawa;
-      const counts1 = s1.tubeCounts;
-      if (this.dom.countUnsur) this.dom.countUnsur.textContent = `${counts1.unsur} Tersimpan`;
-      if (this.dom.countSenyawa) this.dom.countSenyawa.textContent = `${counts1.senyawa} Tersimpan`;
-      this.renderChestChips('unsur', s1.chestItems?.unsur || []);
-      this.renderChestChips('senyawa', s1.chestItems?.senyawa || []);
+      const unsurItems = s1.chestItems?.unsur || [];
+      const senyawaItems = s1.chestItems?.senyawa || [];
+      if (this.dom.countUnsur) this.dom.countUnsur.textContent = `${unsurItems.length} Terkumpul`;
+      if (this.dom.countSenyawa) this.dom.countSenyawa.textContent = `${senyawaItems.length} Terkumpul`;
+      this.renderChestChips('unsur', unsurItems);
+      this.renderChestChips('senyawa', senyawaItems);
 
       const btnUnsur = document.querySelector('[data-chest-type="unsur"]');
-      if (btnUnsur) btnUnsur.innerHTML = `<span>🔍 Buka Peti (${counts1.unsur})</span>`;
+      if (btnUnsur) btnUnsur.innerHTML = `<span>🔍 Buka Peti (${unsurItems.length})</span>`;
       const btnSenyawa = document.querySelector('[data-chest-type="senyawa"]');
-      if (btnSenyawa) btnSenyawa.innerHTML = `<span>🔍 Buka Peti (${counts1.senyawa})</span>`;
+      if (btnSenyawa) btnSenyawa.innerHTML = `<span>🔍 Buka Peti (${senyawaItems.length})</span>`;
 
       // Lab 2: Beaker Campuran
       const s2 = this.modeState.campuran;
-      const counts2 = s2.tubeCounts;
-      if (this.dom.countHomogen) this.dom.countHomogen.textContent = `${counts2.homogen} Terkumpul`;
-      if (this.dom.countKoloid) this.dom.countKoloid.textContent = `${counts2.koloid} Terkumpul`;
-      if (this.dom.countHeterogen) this.dom.countHeterogen.textContent = `${counts2.heterogen} Terkumpul`;
-      this.renderChestChips('homogen', s2.chestItems?.homogen || []);
-      this.renderChestChips('koloid', s2.chestItems?.koloid || []);
-      this.renderChestChips('heterogen', s2.chestItems?.heterogen || []);
+      const homogenItems = s2.chestItems?.homogen || [];
+      const koloidItems = s2.chestItems?.koloid || [];
+      const heterogenItems = s2.chestItems?.heterogen || [];
+      if (this.dom.countHomogen) this.dom.countHomogen.textContent = `${homogenItems.length} Terkumpul`;
+      if (this.dom.countKoloid) this.dom.countKoloid.textContent = `${koloidItems.length} Terkumpul`;
+      if (this.dom.countHeterogen) this.dom.countHeterogen.textContent = `${heterogenItems.length} Terkumpul`;
+      this.renderChestChips('homogen', homogenItems);
+      this.renderChestChips('koloid', koloidItems);
+      this.renderChestChips('heterogen', heterogenItems);
 
       const btnHomogen = document.querySelector('[data-chest-type="homogen"]');
-      if (btnHomogen) btnHomogen.innerHTML = `<span>🔍 Buka Beaker (${counts2.homogen})</span>`;
+      if (btnHomogen) btnHomogen.innerHTML = `<span>🔍 Buka Beaker (${homogenItems.length})</span>`;
       const btnKoloid = document.querySelector('[data-chest-type="koloid"]');
-      if (btnKoloid) btnKoloid.innerHTML = `<span>🔍 Buka Beaker (${counts2.koloid})</span>`;
+      if (btnKoloid) btnKoloid.innerHTML = `<span>🔍 Buka Beaker (${koloidItems.length})</span>`;
       const btnHeterogen = document.querySelector('[data-chest-type="heterogen"]');
-      if (btnHeterogen) btnHeterogen.innerHTML = `<span>🔍 Buka Beaker (${counts2.heterogen})</span>`;
+      if (btnHeterogen) btnHeterogen.innerHTML = `<span>🔍 Buka Beaker (${heterogenItems.length})</span>`;
     }
 
     renderChestChips(type, items) {
@@ -2485,31 +2625,34 @@
         return;
       }
 
-      const uniqueIds = [];
-      const displayItems = [];
-      for (let i = items.length - 1; i >= 0; i--) {
-        const item = items[i];
-        if (!uniqueIds.includes(item.id)) {
-          uniqueIds.push(item.id);
-          displayItems.push(item);
+      // Deduplikasi item berdasarkan item.id untuk memastikan tampilan chip bersih
+      const itemMap = new Map();
+      items.forEach((item) => {
+        if (itemMap.has(item.id)) {
+          const prev = itemMap.get(item.id);
+          prev.count = (prev.count || 1) + (item.count || 1);
+        } else {
+          itemMap.set(item.id, { ...item, count: item.count || 1 });
         }
-        if (displayItems.length >= 4) break;
-      }
+      });
+      const uniqueItems = Array.from(itemMap.values());
+      const displayItems = uniqueItems.slice(-4).reverse();
 
       displayItems.forEach((item) => {
         const pill = document.createElement('span');
         pill.className = `chest-pill pill-${type}`;
         const pillText = item.kind === 'hasil_campuran' ? item.name : (item.formula || item.name);
-        pill.textContent = pillText;
-        pill.title = item.kind === 'hasil_campuran' ? `${item.name} (${item.formula})` : `${item.name} (${item.formula})`;
+        const countSuffix = (item.count && item.count > 1) ? ` (${item.count}x)` : '';
+        pill.textContent = `${pillText}${countSuffix}`;
+        pill.title = `${item.name} (${item.formula || item.id})${item.count > 1 ? ` - Tersimpan ${item.count} kali` : ''}`;
         container.appendChild(pill);
       });
 
-      if (items.length > displayItems.length) {
+      if (uniqueItems.length > displayItems.length) {
         const morePill = document.createElement('span');
         morePill.className = `chest-pill pill-${type}`;
-        morePill.textContent = `+${items.length - displayItems.length}`;
-        morePill.title = `${items.length - displayItems.length} zat lainnya tersimpan`;
+        morePill.textContent = `+${uniqueItems.length - displayItems.length}`;
+        morePill.title = `${uniqueItems.length - displayItems.length} jenis zat lainnya tersimpan`;
         container.appendChild(morePill);
       }
     }
@@ -2517,7 +2660,7 @@
     openChestModal(targetType) {
       const isLab1 = ['unsur', 'senyawa'].includes(targetType);
       const state = isLab1 ? this.modeState.unsur_senyawa : this.modeState.campuran;
-      const items = (state.chestItems && state.chestItems[targetType]) ? state.chestItems[targetType] : [];
+      const rawItems = (state.chestItems && state.chestItems[targetType]) ? state.chestItems[targetType] : [];
 
       const modal = document.getElementById('modal-chest-detail');
       const titleEl = document.getElementById('chest-modal-title');
@@ -2546,7 +2689,19 @@
         if (iconEl) iconEl.textContent = '☕';
       }
 
-      if (titleEl) titleEl.textContent = `📦 Isi ${chestName} (${items.length} Zat Tersimpan)`;
+      // Pastikan setiap jenis kartu HANYA ditampilkan 1 kali di dalam peti/beaker
+      const itemMap = new Map();
+      rawItems.forEach((item) => {
+        if (itemMap.has(item.id)) {
+          const prev = itemMap.get(item.id);
+          prev.count = (prev.count || 1) + (item.count || 1);
+        } else {
+          itemMap.set(item.id, { ...item, count: item.count || 1 });
+        }
+      });
+      const items = Array.from(itemMap.values());
+
+      if (titleEl) titleEl.textContent = `📦 Isi ${chestName} (${items.length} Jenis Zat Tersimpan)`;
       if (subtitleEl) subtitleEl.textContent = `Daftar seluruh zat yang telah berhasil kamu masukkan ke ${chestName}:`;
 
       if (items.length === 0) {
@@ -2567,6 +2722,7 @@
           const secondaryTitle = isCampuran ? item.formula : item.name;
 
           cardEl.innerHTML = `
+            ${(item.count && item.count > 1) ? `<span class="chest-item-qty-badge" title="Telah disimpan ${item.count} kali">×${item.count}</span>` : ''}
             <div class="card-illustration-box">
               ${svgIcon}
             </div>
@@ -2589,6 +2745,16 @@
 
     // --- EVENT LISTENERS ---
     initEventListeners() {
+      // Unmute/Unlock AudioContext pada gesture pertama pengguna (Mobile Safari & Chrome Android)
+      const unlockAudio = () => {
+        this.sound.init();
+        this.sound.resume();
+        window.removeEventListener('pointerdown', unlockAudio);
+        window.removeEventListener('keydown', unlockAudio);
+      };
+      window.addEventListener('pointerdown', unlockAudio, { once: true });
+      window.addEventListener('keydown', unlockAudio, { once: true });
+
       if (this.dom.btnModeUnsur) {
         this.dom.btnModeUnsur.addEventListener('click', () => this.switchMode('unsur_senyawa'));
       }
@@ -2723,8 +2889,11 @@
       if (this.dom.btnRestart) {
         this.dom.btnRestart.addEventListener('click', () => {
           if (confirm('Mulai ulang kartu di laboratorium ini?')) {
+            this.selectedHandCard = null;
             this.initDeckForMode(this.currentMode);
+            this.renderBenchUI();
             this.renderHandUI();
+            this.checkCraftingClues();
             this.showToast('Dek berhasil direset.', 'info');
           }
         });
@@ -2740,12 +2909,30 @@
 
     // --- MODALS SYSTEM ---
     initModals() {
+      // 1. Tombol close eksplisit [data-close]
       document.querySelectorAll('[data-close]').forEach((btn) => {
         btn.addEventListener('click', () => {
           const modalId = btn.getAttribute('data-close');
           const modal = document.getElementById(modalId);
           if (modal) modal.classList.remove('active');
         });
+      });
+
+      // 2. Tutup modal ketika pengguna mengetuk/klik di luar kotak dialog (.modal-overlay)
+      document.querySelectorAll('.modal-overlay').forEach((overlay) => {
+        overlay.addEventListener('click', (e) => {
+          if (e.target === overlay) {
+            overlay.classList.remove('active');
+          }
+        });
+      });
+
+      // 3. Tutup modal ketika tombol Escape ditekan
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          const activeModals = document.querySelectorAll('.modal-overlay.active');
+          activeModals.forEach((modal) => modal.classList.remove('active'));
+        }
       });
 
       if (this.dom.btnTutorial) {
@@ -3108,9 +3295,14 @@
   }
 
   // --- BOOTSTRAP ---
+  window.CARDS_DB = CARDS_DB;
+  window.RECIPES_SENYAWA = RECIPES_SENYAWA;
+  window.RECIPES_CAMPURAN = RECIPES_CAMPURAN;
+
   window.addEventListener('DOMContentLoaded', () => {
     window.elementalCrafting = new ElementalCraftingApp();
     window.zatCraft = window.elementalCrafting;
+    window.app = window.elementalCrafting;
 
     // Helper URL Hash for direct modal testing or shortcuts
     if (window.location.hash.includes('leaderboard')) {
